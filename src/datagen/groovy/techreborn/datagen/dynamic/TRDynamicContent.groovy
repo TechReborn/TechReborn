@@ -75,6 +75,7 @@ import techreborn.blocks.misc.BlockRubberLog
 import techreborn.init.ModFluids
 import techreborn.init.TRContent
 import techreborn.init.TRDamageTypes
+import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator
 import techreborn.world.RubberTreeSpikeDecorator
 import techreborn.world.TROreFeatureConfig
 import techreborn.world.TargetDimension
@@ -163,7 +164,7 @@ class TRDynamicContent {
 
 	private static PlacedFeature createOilLakePlacedFeature(HolderGetter<Feature> lookup) {
 		return new PlacedFeature(
-			lookup.getOrThrow(WorldGenerator.OIL_LAKE_FEATURE), List.of(
+			lookup.getOrThrow(WorldGenerator.OIL_LAKE_FEATURE), List.<PlacementModifier>of(
 				RarityFilter.onAverageOnceEvery(20),
 				HeightRangePlacement.of(UniformHeight.of(VerticalAnchor.absolute(0), VerticalAnchor.top())),
 				EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.allOf(BlockPredicate.not(BlockPredicate.ONLY_IN_AIR_PREDICATE), BlockPredicate.insideWorld(new BlockPos(0, -5, 0))), 32),
@@ -216,7 +217,7 @@ class TRDynamicContent {
 					1
 				),
 				BlockStateProvider.holderOf(Blocks.DIRT.defaultBlockState()))
-				.decorators(List.of(
+				.decorators(List.<TreeDecorator>of(
 					new RubberTreeSpikeDecorator(4, BlockStateProvider.holderOf(TRContent.RUBBER_LEAVES.defaultBlockState()))
 				)).build()
 	}

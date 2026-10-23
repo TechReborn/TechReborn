@@ -331,7 +331,7 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 			(Items.STAINED_GLASS_PANE.red()) : Items.STAINED_GLASS.red(),
 			(Items.STAINED_GLASS_PANE.white()) : Items.STAINED_GLASS.white(),
 			(Items.STAINED_GLASS_PANE.yellow()) : Items.STAINED_GLASS.yellow()
-		].each {(pane,glass) ->
+		].each { pane, glass ->
 			offerBlastFurnaceRecipe {
 				ingredients stack(pane, 10)
 				outputs stack(glass, 3)
@@ -349,7 +349,7 @@ class BlastFurnaceRecipesProvider extends TechRebornRecipesProvider {
 			(Items.ANVIL) : 12,
 			(Items.CHIPPED_ANVIL) : 9,
 			(Items.DAMAGED_ANVIL) : 6,
-		].each {(anvil,amount) ->
+		].each { anvil, amount ->
 			offerBlastFurnaceRecipe {
 				ingredients anvil, stack(Items.SAND, 2)
 				outputs stack(Items.IRON_INGOT, amount), stack(TRContent.Dusts.DARK_ASHES, 2)

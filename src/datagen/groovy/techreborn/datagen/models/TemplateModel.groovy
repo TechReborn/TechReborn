@@ -63,7 +63,7 @@ class TemplateModel {
 	static JsonModel ORIENTABLE = new JsonModel().add(Identifier.withDefaultNamespace("block/orientable"))
 	static JsonModel CUBE_BOTTOM_TOP = new JsonModel().add(Identifier.withDefaultNamespace("block/cube_bottom_top"))
 	static JsonModel BLOCK = new JsonModel().add(Identifier.withDefaultNamespace("block/block"))
-	static Uploadable CUBE_ALL = (Block block) -> new JsonModel()
+	static Uploadable<Block> CUBE_ALL = (Block block) -> new JsonModel()
 		.add(Identifier.withDefaultNamespace("block/cube_all")).id(block).add(TextureMapping.cube(block), TextureSlot.ALL)
 	static JsonModel.DisplayMap CELL_DISPLAY = new JsonModel.DisplayMap()
 		.put(ItemDisplayContext.GROUND, transformation(0, 0, 0, 0, 2, 0, 0.5, 0.5, 0.5))
@@ -385,9 +385,8 @@ class TemplateModel {
 		R upload(V target);
 	}
 	@FunctionalInterface
-	interface Uploadable<T> extends Upload<T, Identifier> {
-		JsonModel apply(T);
-		@Override
+	interface Uploadable<T> {
+		JsonModel apply(T target);
 		default Identifier upload(T target) {
 			apply(target).upload()
 		}
@@ -398,7 +397,7 @@ class TemplateModel {
 	static Uploadable<Item> ENERGY_ITEM_ACTIVE = (Item item) -> ENERGY_ITEM.apply(item).suffix("_active")
 	static Uploadable<Item> ENERGY_ITEM_HANDHELD = (Item item) -> ENERGY_ITEM.apply(item).add(HANDHELD)
 	static Uploadable<Item> ENERGY_ITEM_HANDHELD_ACTIVE = (Item item) -> ENERGY_ITEM_ACTIVE.apply(item).add(HANDHELD)
-	static def SOLAR_PANEL = wrapperBlock { block, id ->
+	static Uploadable<Block> SOLAR_PANEL = wrapperBlock { block, id ->
 		CUBE_BOTTOM_TOP.create(block).add(
 			cubeBottomTop(
 				withSuffix(id, "_top"),
@@ -408,7 +407,7 @@ class TemplateModel {
 			TextureSlot.SIDE
 		)
 	}
-	static def QUANTUM_SOLAR_PANEL = wrapperBlock { block, id ->
+	static Uploadable<Block> QUANTUM_SOLAR_PANEL = wrapperBlock { block, id ->
 		CUBE_BOTTOM_TOP.create(block).add(
 			cubeBottomTop(
 				withSuffix(id, "_top"),
@@ -431,20 +430,20 @@ class TemplateModel {
 			TextureSlot.TOP, TextureSlot.SIDE
 		)
 	}
-	static def GENERATOR_CUBE_BOTTOM_TOP = wrapperBlock { block, id -> CUBE_BOTTOM_TOP_BASE.apply(block, id, new Material(TexturePaths.generatorBottom)) }
-	static def CHARGE_O_MAT = wrapperBlock { block, id -> CUBE_BOTTOM_TOP_BASE.apply(block, id, new Material(TexturePaths.machineTier2Bottom)) }
-	static def CHUNK_LOADER = wrapperBlock { block, id -> CUBE_BOTTOM_TOP_BASE.apply(block, id, new Material(TexturePaths.machineTier3Bottom)) }
-	static def ENERGY = wrapperBlock { block, id ->
+	static Uploadable<Block> GENERATOR_CUBE_BOTTOM_TOP = wrapperBlock { block, id -> CUBE_BOTTOM_TOP_BASE.apply(block, id, new Material(TexturePaths.generatorBottom)) }
+	static Uploadable<Block> CHARGE_O_MAT = wrapperBlock { block, id -> CUBE_BOTTOM_TOP_BASE.apply(block, id, new Material(TexturePaths.machineTier2Bottom)) }
+	static Uploadable<Block> CHUNK_LOADER = wrapperBlock { block, id -> CUBE_BOTTOM_TOP_BASE.apply(block, id, new Material(TexturePaths.machineTier3Bottom)) }
+	static Uploadable<Block> ENERGY = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(orientable(
 			withSuffix(id, "_side"),
 			withSuffix(id, "_front"),
 			withSuffix(id, "_side"),
 		))
 	}
-	static Uploadable ORIENTABLE_SIDE_FRONT_TOP_BOTTOM = { Block block ->
+	static Uploadable<Block> ORIENTABLE_SIDE_FRONT_TOP_BOTTOM = { Block block ->
 		ORIENTABLE.create(block).add(TextureMapping.orientableCube(block))
 	}
-	static def GAS_TURBINE = wrapperBlock { block, id ->
+	static Uploadable<Block> GAS_TURBINE = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(
 			orientable(
 				withSuffix(id, "_top"),
@@ -455,7 +454,7 @@ class TemplateModel {
 			TextureSlot.TOP, TextureSlot.FRONT
 		)
 	}
-	static def FUSION_CONTROL_COMPUTER = wrapperBlock { block, id ->
+	static Uploadable<Block> FUSION_CONTROL_COMPUTER = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(
 			orientable(
 				new Material(TexturePaths.machineTier3Top),
@@ -468,7 +467,7 @@ class TemplateModel {
 			TextureSlot.FRONT
 		)
 	}
-	static def SOLID_FUEL_GENERATOR = wrapperBlock { block, id ->
+	static Uploadable<Block> SOLID_FUEL_GENERATOR = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(
 			orientable(
 				new Material(TexturePaths.generatorTop),
@@ -479,7 +478,7 @@ class TemplateModel {
 			TextureSlot.FRONT
 		)
 	}
-	static def WIND_MILL = wrapperBlock { block, id ->
+	static Uploadable<Block> WIND_MILL = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(orientable(
 			withSuffix(id, "_top"),
 			withSuffix(id, "_bottom"),
@@ -489,7 +488,7 @@ class TemplateModel {
 			withSuffix(id, "_front"),
 		))
 	}
-	static TriFunction<Block, Material, Material, Material> STORAGE_UNIT = { Block block, Material id, Material bottom ->
+	static TriFunction<Block, Material, Material, JsonModel> STORAGE_UNIT = { Block block, Material id, Material bottom ->
 		ORIENTABLE.create(block).add(orientable(
 			withSuffix(id, "_top"),
 			bottom,
@@ -497,9 +496,9 @@ class TemplateModel {
 			withSuffix(id, "_front"),
 		))
 	}
-	static def BASIC_STORAGE_UNIT = wrapperBlock { block, id -> STORAGE_UNIT.apply(block, id, new Material(TexturePaths.basicUnitBottom)) }
-	static def ADVANCED_STORAGE_UNIT = wrapperBlock { block, id -> STORAGE_UNIT.apply(block, id, new Material(TexturePaths.advancedUnitBottom)) }
-	static def INDUSTRIAL_STORAGE_UNIT = wrapperBlock { block, id -> STORAGE_UNIT.apply(block, id, new Material(TexturePaths.industrialUnitBottom)) }
+	static Uploadable<Block> BASIC_STORAGE_UNIT = wrapperBlock { block, id -> STORAGE_UNIT.apply(block, id, new Material(TexturePaths.basicUnitBottom)) }
+	static Uploadable<Block> ADVANCED_STORAGE_UNIT = wrapperBlock { block, id -> STORAGE_UNIT.apply(block, id, new Material(TexturePaths.advancedUnitBottom)) }
+	static Uploadable<Block> INDUSTRIAL_STORAGE_UNIT = wrapperBlock { block, id -> STORAGE_UNIT.apply(block, id, new Material(TexturePaths.industrialUnitBottom)) }
 	static TriFunction<Block, Material, Material, JsonModel> ORIENTABLE_TOP_SIDE_BOTTOM = { Block block, Material id, Material bottom ->
 		ORIENTABLE.create(block).add(orientable(
 			withSuffix(id, "_top"),
@@ -508,7 +507,7 @@ class TemplateModel {
 			withSuffix(id, "_side"),
 		))
 	}
-	static def QUANTUM_STORAGE_UNIT = wrapperBlock { block, id ->
+	static Uploadable<Block> QUANTUM_STORAGE_UNIT = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(orientable(
 			new Material(TexturePaths.quantumTop),
 			new Material(TexturePaths.quantumBottom),
@@ -516,13 +515,13 @@ class TemplateModel {
 			withSuffix(id, "_front"),
 		))
 	}
-	static def BASIC_TANK_UNIT = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, new Material(TexturePaths.basicUnitBottom)) }
-	static def ADVANCED_TANK_UNIT = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, new Material(TexturePaths.advancedUnitBottom)) }
-	static def INDUSTRIAL_TANK_UNIT = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, new Material(TexturePaths.industrialUnitBottom)) }
-	static def QUANTUM_TANK_UNIT = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, new Material(TexturePaths.quantumBottom)) }
-	static def LAUNCHPAD = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, new Material(TexturePaths.machineTier2Bottom)) }
-	static def ELEVATOR = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, withSuffix(id, "_top")) }
-	static def NUCLEAR_REACTOR = wrapperBlock { block, id ->
+	static Uploadable<Block> BASIC_TANK_UNIT = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, new Material(TexturePaths.basicUnitBottom)) }
+	static Uploadable<Block> ADVANCED_TANK_UNIT = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, new Material(TexturePaths.advancedUnitBottom)) }
+	static Uploadable<Block> INDUSTRIAL_TANK_UNIT = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, new Material(TexturePaths.industrialUnitBottom)) }
+	static Uploadable<Block> QUANTUM_TANK_UNIT = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, new Material(TexturePaths.quantumBottom)) }
+	static Uploadable<Block> LAUNCHPAD = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, new Material(TexturePaths.machineTier2Bottom)) }
+	static Uploadable<Block> ELEVATOR = wrapperBlock { block, id -> ORIENTABLE_TOP_SIDE_BOTTOM.apply(block, id, withSuffix(id, "_top")) }
+	static Uploadable<Block> NUCLEAR_REACTOR = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(
 			orientable(
 			withSuffix(id, "_top"),
@@ -544,9 +543,9 @@ class TemplateModel {
 			TextureSlot.FRONT
 		)
 	}
-	static def BASIC_MACHINE = wrapperBlock { block, id -> MACHINE_BASE.apply(block, id, new Material(TexturePaths.machineTier0Dir)) }
-	static def ADVANCED_MACHINE = wrapperBlock { block, id -> MACHINE_BASE.apply(block, id, new Material(TexturePaths.machineTier1Dir)) }
-	static def COMPUTER_CUBE = wrapperBlock { block, id ->
+	static Uploadable<Block> BASIC_MACHINE = wrapperBlock { block, id -> MACHINE_BASE.apply(block, id, new Material(TexturePaths.machineTier0Dir)) }
+	static Uploadable<Block> ADVANCED_MACHINE = wrapperBlock { block, id -> MACHINE_BASE.apply(block, id, new Material(TexturePaths.machineTier1Dir)) }
+	static Uploadable<Block> COMPUTER_CUBE = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(orientable(
 			new Material(TexturePaths.machineTier2Top),
 			new Material(TexturePaths.machineTier1Bottom),
@@ -554,9 +553,9 @@ class TemplateModel {
 			withSuffix(id, "_front"),
 		))
 	}
-	static def PLAYER_DETECTOR_OTHERS = wrapperBlock { block, id -> CUBE_ALL.apply(block).suffix("_others") }
-	static def PLAYER_DETECTOR_YOU = wrapperBlock { block, id -> CUBE_ALL.apply(block).suffix("_you") }
-	static def ADVANCED_MACHINE_WITH_TOP = wrapperBlock { block, id ->
+	static Uploadable<Block> PLAYER_DETECTOR_OTHERS = wrapperBlock { block, id -> CUBE_ALL.apply(block).suffix("_others") }
+	static Uploadable<Block> PLAYER_DETECTOR_YOU = wrapperBlock { block, id -> CUBE_ALL.apply(block).suffix("_you") }
+	static Uploadable<Block> ADVANCED_MACHINE_WITH_TOP = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(
 			orientable(
 				withSuffix(id, "_top"),
@@ -580,8 +579,8 @@ class TemplateModel {
 			TextureSlot.FRONT
 		)
 	}
-	static def ACTIVE_FRONT_MACHINE = wrapperBlock { block, id -> ACTIVE_FRONT_MACHINE_BASE.apply(block, id, new Material(TexturePaths.machineTier2Dir)) }
-	static def ACTIVE_SIDE_MACHINE = wrapperBlock { block, id ->
+	static Uploadable<Block> ACTIVE_FRONT_MACHINE = wrapperBlock { block, id -> ACTIVE_FRONT_MACHINE_BASE.apply(block, id, new Material(TexturePaths.machineTier2Dir)) }
+	static Uploadable<Block> ACTIVE_SIDE_MACHINE = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(
 			orientable(
 				new Material(TexturePaths.machineTier2Top),
@@ -594,7 +593,7 @@ class TemplateModel {
 			TextureSlot.WEST, TextureSlot.EAST, TextureSlot.FRONT
 		)
 	}
-	static def ACTIVE_TOP_FRONT_MACHINE = wrapperBlock { block, id ->
+	static Uploadable<Block> ACTIVE_TOP_FRONT_MACHINE = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(
 			orientable(
 				withSuffix(id, "_top"),
@@ -607,7 +606,7 @@ class TemplateModel {
 			TextureSlot.UP, TextureSlot.FRONT
 		)
 	}
-	static def PUMP = wrapperBlock { block, id ->
+	static Uploadable<Block> PUMP = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(
 			orientable(
 				withSuffix(id, "_top"),
@@ -620,23 +619,23 @@ class TemplateModel {
 			TextureSlot.SOUTH, TextureSlot.FRONT
 		)
 	}
-	static def FLUID_REPLICATOR = wrapperBlock { block, id -> ACTIVE_FRONT_MACHINE_BASE.apply(block, id, new Material(TexturePaths.machineTier3Dir)) }
+	static Uploadable<Block> FLUID_REPLICATOR = wrapperBlock { block, id -> ACTIVE_FRONT_MACHINE_BASE.apply(block, id, new Material(TexturePaths.machineTier3Dir)) }
 
 	static BiFunction<Block, Material, JsonModel> LIGHT_BLOCK = (Block block, Material id) -> BLOCK.create(block).add(
 		new TextureMapping().put(TextureSlot.PARTICLE, id).put(KEY_ZERO, id),
 		TextureSlot.PARTICLE, KEY_ZERO
 	)
-	static def ALARM_LIGHT = wrapperBlock { block, id ->
+	static Uploadable<Block> ALARM_LIGHT = wrapperBlock { block, id ->
 		LIGHT_BLOCK.apply(block, id).add(LIGHT_DISPLAY_1).add(List.of(
 			new CuboidModelElement(new Vector3f(3, 0, 3), new Vector3f(13, 3, 13), LIGHT_BASE_ELEMENT,)
 		))
 	}
-	static def LAMP_LED_LIGHT = wrapperBlock { block, id ->
+	static Uploadable<Block> LAMP_LED_LIGHT = wrapperBlock { block, id ->
 		LIGHT_BLOCK.apply(block, id).add(LIGHT_DISPLAY_1).add(List.of(
 			new CuboidModelElement(new Vector3f(2, 0, 2), new Vector3f(14, 2, 14), LIGHT_BASE_ELEMENT)
 		))
 	}
-	static def LAMP_INCANDESCENT_LIGHT = wrapperBlock { block, id ->
+	static Uploadable<Block> LAMP_INCANDESCENT_LIGHT = wrapperBlock { block, id ->
 		LIGHT_BLOCK.apply(block, id).add(LIGHT_DISPLAY_2).add(List.of(
 			new CuboidModelElement(
 				new Vector3f(5, 0, 5), new Vector3f(11, 2, 11),
@@ -661,10 +660,10 @@ class TemplateModel {
 			.put(KEY_TWO, withSuffix(id, "_bottom"))
 			.put(KEY_THREE, withSuffix(id, "_inner"))
 	)
-	static def RESIN_BASIN_EMPTY = wrapperBlock { block, id ->
+	static Uploadable<Block> RESIN_BASIN_EMPTY = wrapperBlock { block, id ->
 		RESIN_BASIN_BASE.apply(block, id).add(RESIN_BASIN_BASE_ELEMENT).add(RESIN_BASIN_DISPLAY)
 	}
-	static def RESIN_BASIN_FLOWING = wrapperBlock { block, id ->
+	static Uploadable<Block> RESIN_BASIN_FLOWING = wrapperBlock { block, id ->
 		List<CuboidModelElement> elements = new ArrayList<>(RESIN_BASIN_BASE_ELEMENT)
 		elements.add(new CuboidModelElement(
 			new Vector3f(6.5, 11, 9), new Vector3f(9.5, 12, 19),
@@ -696,7 +695,7 @@ class TemplateModel {
 		))
 		RESIN_BASIN_BASE.apply(block, id).add(elements).suffix("_flowing")
 	}
-	static def RESIN_BASIN_FULL = wrapperBlock { block, id ->
+	static Uploadable<Block> RESIN_BASIN_FULL = wrapperBlock { block, id ->
 		JsonModel model = RESIN_BASIN_BASE.apply(block, id)
 		model.textures = model.textures.copyAndUpdate(KEY_FOUR, withSuffix(id, "_sap_still"))
 		List<CuboidModelElement> elements = new ArrayList<>(RESIN_BASIN_BASE_ELEMENT)
@@ -716,7 +715,7 @@ class TemplateModel {
 		))
 		model.add(elements).suffix("_full")
 	}
-	static def FISHING_STATION = wrapperBlock { block, id ->
+	static Uploadable<Block> FISHING_STATION = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).add(FISHING_STATION_DISPLAY).add(FISHING_STATION_ELEMENTS).add(
 			orientable(
 				new Material(TexturePaths.machineTier2Top),
@@ -731,14 +730,14 @@ class TemplateModel {
 			.put(KEY_MISSING, new Material(Identifier.withDefaultNamespace("missingno")))
 		)
 	}
-	static def RUBBER_LOG_WITH_SAP = wrapperBlock { block, id ->
+	static Uploadable<Block> RUBBER_LOG_WITH_SAP = wrapperBlock { block, id ->
 		ORIENTABLE.create(block).suffix("_with_sap").add(orientable(
 			withSuffix(id, "_top"),
 			withSuffix(id, "_sap"),
 			id,
 		))
 	}
-	static def FLUID = wrapperBlock { block, material ->
+	static Uploadable<Block> FLUID = wrapperBlock { block, material ->
 		new JsonModel().id(block).add(TextureMapping.particle(withSuffix(material, "_still")))
 	}
 	static BiFunction<Block, Material, JsonModel> CABLE_CORE_BASE = { Block block, Material id ->
@@ -747,10 +746,10 @@ class TemplateModel {
 	static BiFunction<Block, Material, JsonModel> CABLE_SIDE_BASE = { Block block, Material id ->
 		new JsonModel().id(block).suffix("_side").add(texture(id))
 	}
-	static def CABLE_CORE = wrapperBlock { block, id -> CABLE_CORE_BASE.apply(block, id).add(CABLE_CORE_ELEMENT) }
-	static def CABLE_SIDE = wrapperBlock { block, id -> CABLE_SIDE_BASE.apply(block, id).add(CABLE_SIDE_ELEMENT) }
-	static def CABLE_THICK_CORE = wrapperBlock { block, id -> CABLE_CORE_BASE.apply(block, id).add(CABLE_THICK_CORE_ELEMENT) }
-	static def CABLE_THICK_SIDE = wrapperBlock { block, id -> CABLE_SIDE_BASE.apply(block, id).add(CABLE_THICK_SIDE_ELEMENT) }
+	static Uploadable<Block> CABLE_CORE = wrapperBlock { block, id -> CABLE_CORE_BASE.apply(block, id).add(CABLE_CORE_ELEMENT) }
+	static Uploadable<Block> CABLE_SIDE = wrapperBlock { block, id -> CABLE_SIDE_BASE.apply(block, id).add(CABLE_SIDE_ELEMENT) }
+	static Uploadable<Block> CABLE_THICK_CORE = wrapperBlock { block, id -> CABLE_CORE_BASE.apply(block, id).add(CABLE_THICK_CORE_ELEMENT) }
+	static Uploadable<Block> CABLE_THICK_SIDE = wrapperBlock { block, id -> CABLE_SIDE_BASE.apply(block, id).add(CABLE_THICK_SIDE_ELEMENT) }
 	static Upload<Block, List<Identifier>> MACHINE_CASING = { Block block ->
 		Material texture = TextureMapping.getBlockTexture(block)
 		Identifier id = ModelLocationUtils.getModelLocation(block)
@@ -780,22 +779,22 @@ class TemplateModel {
 		}
 		return ids
 	}
-	static def NANOSABER_BASE = wrapperItem { item, id ->
+	static Uploadable<Item> NANOSABER_BASE = wrapperItem { item, id ->
 		new JsonModel().add(NANOSABER_DISPLAY).add(NANOSABER_ELEMENT).id(item).add(texture(id), TextureSlot.TEXTURE, TextureSlot.PARTICLE)
 	}
 	static Uploadable<Item> NANOSABER_OFF = { Item item -> NANOSABER_BASE.apply(item).suffix("_off") }
 	static Uploadable<Item> NANOSABER_ON = { Item item -> NANOSABER_BASE.apply(item).suffix("_on") }
 	static Uploadable<Item> NANOSABER_LOW = { Item item -> NANOSABER_BASE.apply(item).suffix("_low") }
-	static def CELL_BASE = wrapperItem { item, id ->
+	static Uploadable<Item> CELL_BASE = wrapperItem { item, id ->
 		GENERATED.create(item).suffix("_base").add(CELL_DISPLAY).add(
 			TextureMapping.layer0(id).put(TextureSlot.PARTICLE, id),
 			TextureSlot.LAYER0, TextureSlot.PARTICLE
 		)
 	}
-	static def CELL_BACKGROUND = wrapperItem { item, id ->
+	static Uploadable<Item> CELL_BACKGROUND = wrapperItem { item, id ->
 		CELL_TEMPLATE.create(item).suffix("_background").add(TextureMapping.defaultTexture(id), TextureSlot.TEXTURE)
 	}
-	static def CELL_GLASS = wrapperItem { item, id ->
+	static Uploadable<Item> CELL_GLASS = wrapperItem { item, id ->
 		CELL_TEMPLATE.create(item).suffix("_glass").add(TextureMapping.defaultTexture(id), TextureSlot.TEXTURE)
 	}
 	static Uploadable<Identifier> BUCKET_BASE = { Identifier id ->

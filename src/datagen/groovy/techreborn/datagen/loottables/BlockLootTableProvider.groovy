@@ -176,15 +176,15 @@ class BlockLootTableProvider extends FabricBlockLootSubProvider {
 	}
 
 	private static Holder<ContextIntProvider> constant(int value) {
-		return Holder.direct(new ConstantValue(value))
+		return Holder.<ContextIntProvider>direct(new ConstantValue(value))
 	}
 
 	private static Holder<ContextIntProvider> uniform(int min, int max) {
-		return Holder.direct(new UniformGenerator(constant(min), constant(max)))
+		return Holder.<ContextIntProvider>direct(new UniformGenerator(constant(min), constant(max)))
 	}
 
 	private Holder<LootItemCondition> withoutSilkTouch() {
-		return Holder.direct(new InvertedLootItemCondition(hasSilkTouch()))
+		return Holder.<LootItemCondition>direct(new InvertedLootItemCondition(hasSilkTouch()))
 	}
 
 	private LootTable.Builder cinnabarOreDrops(Block drop) {

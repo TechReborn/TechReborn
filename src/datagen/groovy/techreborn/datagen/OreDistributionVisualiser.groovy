@@ -26,6 +26,8 @@ package techreborn.datagen
 
 import net.minecraft.SharedConstants
 import net.minecraft.core.registries.Registries
+import net.minecraft.data.registries.VanillaRegistries
+import net.minecraft.world.level.biome.Biomes
 import net.minecraft.server.Bootstrap
 import net.minecraft.world.level.EmptyBlockGetter
 import net.minecraft.world.level.levelgen.DebugLevelSource
@@ -54,7 +56,7 @@ class OreDistributionVisualiser {
 
 	static void main(String[] args) {
 		// Start the game up enough
-		SharedConstants.createGameVersion()
+		SharedConstants.tryDetectVersion()
 		Bootstrap.bootStrap()
 
 		generateOreDistributionVisualization()
@@ -80,12 +82,12 @@ class OreDistributionVisualiser {
 		for (OreDistribution value : overworldOres()) {
 			png.setPaint(colors[c])
 
-			def yMin = value.minOffset.getY(heightContext) + -heightContext.minY
+			def yMin = value.minOffset.resolveY(heightContext) + -heightContext.minY
 			def yMax = -heightContext.minY + value.maxY
 
 			png.fill3DRect(c * 10, yMin, 10, yMax - yMin, true)
 
-			png.drawString(value.name() + "(%d -> %d)".formatted(value.minOffset.getY(heightContext), value.maxY), 190, 25 * c)
+			png.drawString(value.name() + "(%d -> %d)".formatted(value.minOffset.resolveY(heightContext), value.maxY), 190, 25 * c)
 
 			c += 1
 		}
@@ -104,7 +106,7 @@ class OreDistributionVisualiser {
 		final int height
 
 		FixedHeightContext(int minY, int height) {
-			super(new DebugLevelSource(Registries.BIOME), EmptyBlockGetter.INSTANCE)
+			super(new DebugLevelSource(VanillaRegistries.createWorldLookup().lookupOrThrow(Registries.BIOME).getOrThrow(Biomes.PLAINS)), EmptyBlockGetter.INSTANCE)
 
 			this.minY = minY
 			this.height = height

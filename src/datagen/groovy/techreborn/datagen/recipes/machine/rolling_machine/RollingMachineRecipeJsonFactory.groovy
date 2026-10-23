@@ -85,7 +85,7 @@ class RollingMachineRecipeJsonFactory extends MachineRecipeJsonFactory<RollingMa
 	}
 
 	@Override
-	def getIdentifier() {
+	Identifier getIdentifier() {
 		def outputId = BuiltInRegistries.ITEM.getKey(shapedRecipeFactory.output.item().value())
 		def recipeId = BuiltInRegistries.RECIPE_TYPE.getKey(type)
 		return Identifier.fromNamespaceAndPath("techreborn", "${recipeId.path}/${outputId.path}${getSourceAppendix()}")

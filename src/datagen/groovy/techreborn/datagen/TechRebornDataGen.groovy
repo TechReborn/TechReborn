@@ -75,50 +75,47 @@ class TechRebornDataGen implements ModInitializer, DataGeneratorEntrypoint {
 	void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 		def pack = fabricDataGenerator.createPack()
 
-		def add = { FabricDataGenerator.Pack.RegistryDependentFactory factory ->
-			pack.addProvider factory
-		}
-		def addSimple = { FabricDataGenerator.Pack.Factory factory ->
-			pack.addProvider factory
-		}
+		addProvider(pack, TRItemTagProvider::new)
+		addProvider(pack, TRPointOfInterestTagProvider::new)
 
-		add TRItemTagProvider::new
-		add TRPointOfInterestTagProvider::new
-
-		add TRBlockTagProvider::new
+		addProvider(pack, TRBlockTagProvider::new)
 		// tags before all else, very important!!
-		add SmeltingRecipesProvider::new
-		add CraftingRecipesProvider::new
+		addProvider(pack, SmeltingRecipesProvider::new)
+		addProvider(pack, CraftingRecipesProvider::new)
 
-		add GrinderRecipesProvider::new
-		add CompressorRecipesProvider::new
-		add ExtractorRecipesProvider::new
-		add FluidReplicatorRecipesProvider::new
-		add ChemicalReactorRecipesProvider::new
-		add AssemblingMachineRecipesProvider::new
-		add BlastFurnaceRecipesProvider::new
-		add CentrifugeRecipesProvider::new
-		add IndustrialGrinderRecipesProvider::new
-		add IndustrialSawmillRecipesProvider::new
-		add ImplosionCompressorRecipesProvider::new
-		add IndustrialElectrolyzerRecipesProvider::new
-		add AlloySmelterRecipesProvider::new
-		add RecyclerRecipesProvider::new
-		add ScrapboxRecipesProvider::new
-		add SolidCanningMachineRecipesProvider::new
-		add VacuumFreezerRecipesProvider::new
-		add WireMillRecipesProvider::new
-		add RollingMachineRecipesProvider::new
-		add DistillationTowerRecipesProvider::new
-		add FusionReactorRecipesProvider::new
-		add FluidGeneratorRecipeProvider::new
+		addProvider(pack, GrinderRecipesProvider::new)
+		addProvider(pack, CompressorRecipesProvider::new)
+		addProvider(pack, ExtractorRecipesProvider::new)
+		addProvider(pack, FluidReplicatorRecipesProvider::new)
+		addProvider(pack, ChemicalReactorRecipesProvider::new)
+		addProvider(pack, AssemblingMachineRecipesProvider::new)
+		addProvider(pack, BlastFurnaceRecipesProvider::new)
+		addProvider(pack, CentrifugeRecipesProvider::new)
+		addProvider(pack, IndustrialGrinderRecipesProvider::new)
+		addProvider(pack, IndustrialSawmillRecipesProvider::new)
+		addProvider(pack, ImplosionCompressorRecipesProvider::new)
+		addProvider(pack, IndustrialElectrolyzerRecipesProvider::new)
+		addProvider(pack, AlloySmelterRecipesProvider::new)
+		addProvider(pack, RecyclerRecipesProvider::new)
+		addProvider(pack, ScrapboxRecipesProvider::new)
+		addProvider(pack, SolidCanningMachineRecipesProvider::new)
+		addProvider(pack, VacuumFreezerRecipesProvider::new)
+		addProvider(pack, WireMillRecipesProvider::new)
+		addProvider(pack, RollingMachineRecipesProvider::new)
+		addProvider(pack, DistillationTowerRecipesProvider::new)
+		addProvider(pack, FusionReactorRecipesProvider::new)
+		addProvider(pack, FluidGeneratorRecipeProvider::new)
 
-		add ModelProvider::new
-		addSimple TREquipmentAssetProvider::new
-		add BlockLootTableProvider::new
+		addProvider(pack, ModelProvider::new)
+		pack.addProvider(TREquipmentAssetProvider::new as FabricDataGenerator.Pack.Factory<TREquipmentAssetProvider>)
+		addProvider(pack, BlockLootTableProvider::new)
 
-		add TRDynamicProvider::new
-		add TRAdvancementProvider::new
+		addProvider(pack, TRDynamicProvider::new)
+		addProvider(pack, TRAdvancementProvider::new)
+	}
+
+	private static void addProvider(FabricDataGenerator.Pack pack, FabricDataGenerator.Pack.RegistryDependentFactory<?> factory) {
+		pack.addProvider(factory)
 	}
 
 	@Override

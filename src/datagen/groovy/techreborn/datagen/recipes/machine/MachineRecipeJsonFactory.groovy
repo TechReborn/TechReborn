@@ -153,7 +153,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		return this
 	}
 
-	def id(Identifier identifier) {
+	MachineRecipeJsonFactory<R> id(Identifier identifier) {
 		this.customId = identifier
 		return this
 	}
@@ -219,7 +219,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 
 		if (provider.exportedRecipes.contains(recipeId) && !customId) {
 			int i = 1
-			def id
+			Identifier id
 			do {
 				i++
 				id = Identifier.parse(recipeId.toString() + "_" + i)
@@ -246,7 +246,7 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 		exporter.accept(key, recipe, advancement)
 	}
 
-	def getIdentifier() {
+	Identifier getIdentifier() {
 		if (customId) {
 			return customId
 		}
@@ -255,12 +255,12 @@ class MachineRecipeJsonFactory<R extends RebornRecipe> {
 			throw new IllegalStateException("Recipe has no outputs")
 		}
 
-		def outputId = BuiltInRegistries.ITEM.getKey(outputs[0].item)
+		def outputId = BuiltInRegistries.ITEM.getKey(outputs[0].item().value())
 		def recipeId = BuiltInRegistries.RECIPE_TYPE.getKey(type)
 		return Identifier.fromNamespaceAndPath("techreborn", "${recipeId.path}/${outputId.path}${getSourceAppendix()}")
 	}
 
 	def feature(FeatureFlag flag) {
-		condition(DefaultResourceConditions.featuresEnabled(flag))
+		condition(ResourceConditions.featuresEnabled(flag))
 	}
 }

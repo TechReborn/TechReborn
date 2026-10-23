@@ -158,6 +158,10 @@ sourceSets {
     }
 }
 
+tasks.named('compileDatagenGroovy', GroovyCompile) {
+    groovyOptions.configurationScript = file('gradle/datagen-groovy.groovy')
+}
+
 allprojects {
     loom {
         mods {
@@ -209,7 +213,7 @@ dependencies {
     //runtimeOnly("mezz.jei:jei-26.1.1-fabric:29.3.0.22")
 
     // Use groovy for datagen, if you are copying this you prob dont want it.
-    datagenImplementation 'org.apache.groovy:groovy:5.0.3'
+    datagenImplementation 'org.apache.groovy:groovy:6.0.0'
 }
 
 def optionalREIDependency(runtime = true) {

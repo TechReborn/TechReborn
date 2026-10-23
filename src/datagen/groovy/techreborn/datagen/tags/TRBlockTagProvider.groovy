@@ -67,6 +67,12 @@ class TRBlockTagProvider extends BlockTagsProvider {
 			return element.block()
 		}
 
+		@Override
+		BlockAppender addOptionalTag(TagKey<Block> tag) {
+			super.addOptionalTag(tag)
+			return this
+		}
+
 		BlockAppender add(Block... blocks) {
 			blocks.each { add(TRBlockTagProvider.key(it)) }
 			return this

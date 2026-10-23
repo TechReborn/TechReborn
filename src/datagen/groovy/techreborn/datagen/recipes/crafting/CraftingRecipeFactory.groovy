@@ -27,6 +27,7 @@ package techreborn.datagen.recipes.crafting
 import net.minecraft.core.HolderGetter
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
+import net.minecraft.data.recipes.RecipeBuilder
 import net.minecraft.data.recipes.RecipeCategory
 import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.data.recipes.ShapedRecipeBuilder
@@ -102,7 +103,7 @@ class CraftingRecipeFactory {
 		builder.save(exporter, recipeKey(name))
 	}
 
-	private void unlock(def builder, Collection<?> ingredients) {
+	private void unlock(RecipeBuilder builder, Collection<?> ingredients) {
 		def input = ingredients.first()
 		if (input instanceof Fluid) {
 			builder.unlockedBy("has_${BuiltInRegistries.FLUID.getKey(input).toDebugFileName()}", provider.getCriterionConditions(provider.getCellItemPredicate(input)))

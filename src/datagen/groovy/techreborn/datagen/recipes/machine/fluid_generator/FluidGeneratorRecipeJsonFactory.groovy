@@ -78,7 +78,7 @@ class FluidGeneratorRecipeJsonFactory extends MachineRecipeJsonFactory<FluidGene
 	}
 
 	@Override
-	def getIdentifier() {
+	Identifier getIdentifier() {
 		def outputId = BuiltInRegistries.FLUID.getKey(fluid)
 		def recipeId = BuiltInRegistries.RECIPE_TYPE.getKey(type)
 		return Identifier.fromNamespaceAndPath("techreborn", "${recipeId.path}/${outputId.path}${getSourceAppendix()}")

@@ -33,6 +33,7 @@ import net.minecraft.world.level.ItemLike
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.crafting.StonecutterRecipe
+import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.data.recipes.RecipeCategory
 import net.minecraft.resources.ResourceKey
 import net.minecraft.core.registries.Registries
@@ -535,7 +536,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 			.save(this.exporter, getRecipeKey("crafting_table/scrap_box"))
 	}
 
-	def static recipeNameString(String prefix, def input, def output, String source = null, String result = null) {
+	static String recipeNameString(String prefix, def input, def output, String source = null, String result = null) {
 		StringBuilder s = new StringBuilder()
 		s.append(prefix)
 		if (result == null)
@@ -549,17 +550,17 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 		return s.toString()
 	}
 
-	def static getRecipeKey(String name) {
+	static ResourceKey<Recipe<?>> getRecipeKey(String name) {
 		return ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, name))
 	}
 
-	def offerMonoShapelessRecipe(def input, int inputSize, ItemLike output, int outputSize, String source, prefix = "", String result = null, RecipeCategory category = RecipeCategory.MISC) {
+	def offerMonoShapelessRecipe(def input, int inputSize, ItemLike output, int outputSize, String source, String prefix = "", String result = null, RecipeCategory category = RecipeCategory.MISC) {
 		ShapelessRecipeBuilder.shapeless(itemLookup, category, output, outputSize).requires(createIngredient(input), inputSize)
 				.unlockedBy(getCriterionName(input), getCriterionConditions(input))
 				.save(this.exporter, getRecipeKey(recipeNameString(prefix, input, output, source, result)))
 	}
 
-	def static materialTypeString(String prefix, def material, String type, Function<?, String> modifier) {
+	static String materialTypeString(String prefix, def material, String type, Function<Object, String> modifier) {
 		StringBuilder s = new StringBuilder()
 		s.append(prefix)
 		s.append(modifier.apply(material))
@@ -568,13 +569,13 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 		return s.toString()
 	}
 
-	def createMonoShapeRecipe(def input, ItemLike output, char character, int outputAmount = 1, RecipeCategory category = RecipeCategory.MISC) {
+	ShapedRecipeBuilder createMonoShapeRecipe(def input, ItemLike output, char character, int outputAmount = 1, RecipeCategory category = RecipeCategory.MISC) {
 		return ShapedRecipeBuilder.shaped(itemLookup, category, output, outputAmount)
 				.define(character, createIngredient(input))
 				.unlockedBy(getCriterionName(input), getCriterionConditions(input))
 	}
 
-	def createDuoShapeRecipe(def input1, def input2, ItemLike output, char char1, char char2, boolean crit1 = true, boolean crit2 = false, RecipeCategory category = RecipeCategory.MISC) {
+	ShapedRecipeBuilder createDuoShapeRecipe(def input1, def input2, ItemLike output, char char1, char char2, boolean crit1 = true, boolean crit2 = false, RecipeCategory category = RecipeCategory.MISC) {
 		ShapedRecipeBuilder factory = ShapedRecipeBuilder.shaped(itemLookup, category, output)
 				.define(char1, createIngredient(input1))
 				.define(char2, createIngredient(input2))
@@ -585,23 +586,23 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 		return factory
 	}
 
-	def createStonecutterRecipe(def input, ItemLike output, int outputAmount = 1, RecipeCategory category = RecipeCategory.MISC) {
+	SingleItemRecipeBuilder createStonecutterRecipe(def input, ItemLike output, int outputAmount = 1, RecipeCategory category = RecipeCategory.MISC) {
 		return new SingleItemRecipeBuilder(category, StonecutterRecipe.&new, createIngredient(input), output, outputAmount)
 				.unlockedBy(getCriterionName(input), getCriterionConditions(input))
 	}
 
-	def offerSlabRecipe(def material, ItemLike output, prefix = "") {
+	def offerSlabRecipe(def material, ItemLike output, String prefix = "") {
 		createMonoShapeRecipe(material, output, 'X' as char, 6)
 				.pattern("XXX")
 				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, "slab", TechRebornRecipesProvider::getName)))
 	}
 
-	def offerSlabRecipeStonecutter(def material, ItemLike output, prefix = "") {
+	def offerSlabRecipeStonecutter(def material, ItemLike output, String prefix = "") {
 		createStonecutterRecipe(material, output, 2)
 				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, "slab", TechRebornRecipesProvider::getName) + "_stonecutter"))
 	}
 
-	def offerStairsRecipe(def material, ItemLike output, prefix = "") {
+	def offerStairsRecipe(def material, ItemLike output, String prefix = "") {
 		createMonoShapeRecipe(material, output, 'X' as char, 4)
 				.pattern("X  ")
 				.pattern("XX ")
@@ -609,24 +610,24 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, "stairs", TechRebornRecipesProvider::getName)))
 	}
 
-	def offerStairsRecipeStonecutter(def material, ItemLike output, prefix = "") {
+	def offerStairsRecipeStonecutter(def material, ItemLike output, String prefix = "") {
 		createStonecutterRecipe(material, output)
 				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, "stairs", TechRebornRecipesProvider::getName) + "_stonecutter"))
 	}
 
-	def offerWallRecipe(def material, ItemLike output, prefix = "") {
+	def offerWallRecipe(def material, ItemLike output, String prefix = "") {
 		createMonoShapeRecipe(material, output, 'X' as char, 6)
 				.pattern("XXX")
 				.pattern("XXX")
 				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, "wall", TechRebornRecipesProvider::getName)))
 	}
 
-	def offerWallRecipeStonecutter(def material, ItemLike output, prefix = "") {
+	def offerWallRecipeStonecutter(def material, ItemLike output, String prefix = "") {
 		createStonecutterRecipe(material, output)
 				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, "wall", TechRebornRecipesProvider::getName) + "_stonecutter"))
 	}
 
-	def offerAxeRecipe(def material, ItemLike output, prefix = "", String type = "axe") {
+	def offerAxeRecipe(def material, ItemLike output, String prefix = "", String type = "axe") {
 		createDuoShapeRecipe(material, Items.STICK, output,
 				'X' as char, '#' as char)
 				.pattern("XX")
@@ -635,7 +636,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
 	}
 
-	def offerHoeRecipe(def material, ItemLike output, prefix = "", String type = "hoe") {
+	def offerHoeRecipe(def material, ItemLike output, String prefix = "", String type = "hoe") {
 		createDuoShapeRecipe(material, Items.STICK, output,
 				'X' as char, '#' as char)
 				.pattern("XX")
@@ -644,7 +645,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
 	}
 
-	def offerPickaxeRecipe(def material, ItemLike output, prefix = "", String type = "pickaxe") {
+	def offerPickaxeRecipe(def material, ItemLike output, String prefix = "", String type = "pickaxe") {
 		createDuoShapeRecipe(material, Items.STICK, output,
 				'X' as char, '#' as char)
 				.pattern("XXX")
@@ -653,7 +654,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
 	}
 
-	def offerShovelRecipe(def material, ItemLike output, prefix = "", String type = "shovel") {
+	def offerShovelRecipe(def material, ItemLike output, String prefix = "", String type = "shovel") {
 		createDuoShapeRecipe(material, Items.STICK, output,
 				'X' as char, '#' as char)
 				.pattern("X")
@@ -662,7 +663,7 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
 	}
 
-	def offerSwordRecipe(def material, ItemLike output, prefix = "", String type = "sword") {
+	def offerSwordRecipe(def material, ItemLike output, String prefix = "", String type = "sword") {
 		createDuoShapeRecipe(material, Items.STICK, output,
 				'X' as char, '#' as char)
 				.pattern("X")
@@ -671,14 +672,14 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
 	}
 
-	def offerBootsRecipe(def material, ItemLike output, prefix = "", String type = "boots") {
+	def offerBootsRecipe(def material, ItemLike output, String prefix = "", String type = "boots") {
 		createMonoShapeRecipe(material, output, 'X' as char)
 				.pattern("X X")
 				.pattern("X X")
 				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
 	}
 
-	def offerChestplateRecipe(def material, ItemLike output, prefix = "", String type = "chestplate") {
+	def offerChestplateRecipe(def material, ItemLike output, String prefix = "", String type = "chestplate") {
 		createMonoShapeRecipe(material, output, 'X' as char)
 				.pattern("X X")
 				.pattern("XXX")
@@ -686,14 +687,14 @@ class CraftingRecipesProvider extends TechRebornRecipesProvider {
 				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
 	}
 
-	def offerHelmetRecipe(def material, ItemLike output, prefix = "", String type = "helmet") {
+	def offerHelmetRecipe(def material, ItemLike output, String prefix = "", String type = "helmet") {
 		createMonoShapeRecipe(material, output, 'X' as char)
 				.pattern("XXX")
 				.pattern("X X")
 				.save(this.exporter, getRecipeKey(materialTypeString(prefix, material, type, TechRebornRecipesProvider::getNamePart1)))
 	}
 
-	def offerLeggingsRecipe(def material, ItemLike output, prefix = "", String type = "leggings") {
+	def offerLeggingsRecipe(def material, ItemLike output, String prefix = "", String type = "leggings") {
 		createMonoShapeRecipe(material, output, 'X' as char)
 				.pattern("XXX")
 				.pattern("X X")

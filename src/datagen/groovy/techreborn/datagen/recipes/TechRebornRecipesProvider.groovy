@@ -69,7 +69,7 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 	protected RecipeOutput exporter
 	public Set<Identifier> exportedRecipes = []
 	public HolderGetter<Item> itemLookup
-	public RecipeProvider generator
+	public TechRebornRecipeGenerator generator
 
 	TechRebornRecipesProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture)
@@ -79,7 +79,7 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 	protected RecipeProvider createRecipeProvider(HolderLookup.Provider wrapperLookup, BootstrapContext<Recipe<?>> recipes, BootstrapContext<Advancement> advancements) {
 		itemLookup = wrapperLookup.lookupOrThrow(Registries.ITEM)
 		generator = new TechRebornRecipeGenerator(recipes, advancements)
-		exporter = generator.output
+		exporter = generator.getOutput()
 		return generator
 	}
 
@@ -298,6 +298,10 @@ abstract class TechRebornRecipesProvider extends FabricRecipeProvider {
 	class TechRebornRecipeGenerator extends RecipeProvider {
 		protected TechRebornRecipeGenerator(BootstrapContext<Recipe<?>> recipes, BootstrapContext<Advancement> advancements) {
 			super(recipes, advancements)
+		}
+
+		RecipeOutput getOutput() {
+			return this.@output
 		}
 
 		@Override

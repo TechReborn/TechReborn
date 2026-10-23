@@ -115,10 +115,11 @@ class ShapedRecipeFactory {
 	private Map<Object, Character> makeIngredients() {
 		Map<Object, Character> ingredients = new HashMap<>()
 		def inputs = pattern.toList().stream().distinct().toArray(Object[]::new)
+		int firstSymbol = (int) 'A'.charAt(0)
 		for (int i = 0; i < inputs.length; i++) {
 			Object ingredient = inputs[i]
 			if (ingredient != null) {
-				char nextChar = (char)'A' + i
+				char nextChar = (char) (firstSymbol + i)
 				ingredients.put(ingredient, nextChar)
 			}
 		}
@@ -126,9 +127,9 @@ class ShapedRecipeFactory {
 	}
 
 	// Split the pattern into rows and columns
-	// When the size is 3 x 3 the output will be 3 arrays with 3 elements each
-	// When the size is 1 x 2 the output will be 1 array with 2 elements
-	private Object[][] splitPattern() {
+	// When the size is 3 x 3 the output will be 3 rows with 3 elements each
+	// When the size is 1 x 2 the output will be 1 row with 2 elements
+	private List<List<Object>> splitPattern() {
 		if (pattern.size() != width * height) {
 			throw new IllegalArgumentException("Pattern size does not match width and height")
 		}
@@ -136,11 +137,11 @@ class ShapedRecipeFactory {
 		return pattern.collate(width)
 	}
 
-	private toIngredient(Object object) {
+	private Ingredient toIngredient(Object object) {
 		if (object instanceof Ingredient) {
 			return object
 		} else if (object instanceof ItemStackTemplate) {
-			return Ingredient.of(object)
+			return Ingredient.of(object.item().value())
 		} else if (object instanceof ItemLike) {
 			return Ingredient.of(object)
 		} else if (object instanceof TagKey) {

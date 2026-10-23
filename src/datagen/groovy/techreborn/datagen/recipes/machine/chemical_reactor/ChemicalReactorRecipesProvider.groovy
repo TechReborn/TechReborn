@@ -168,7 +168,7 @@ class ChemicalReactorRecipesProvider extends TechRebornRecipesProvider {
 		}
 	}
 
-	static def getColorSource(Item item, ColoredItem color) {
+	static String getColorSource(Item item, ColoredItem color) {
 		return BuiltInRegistries.ITEM.getKey(item).path + "_with_" + BuiltInRegistries.ITEM.getKey(color.getDye()).path
 	}
 
