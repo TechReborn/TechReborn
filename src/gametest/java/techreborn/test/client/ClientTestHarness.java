@@ -135,6 +135,9 @@ final class ClientTestHarness {
 		onServer(minecraftServer -> {
 			ServerLevel level = level(minecraftServer);
 			for (int x = -8; x <= 8; x++) {
+				for (int z = -8; z <= 8; z++) {
+					level.setBlockAndUpdate(new BlockPos(x, TEST_Y - 1, z), Blocks.STONE.defaultBlockState());
+				}
 				for (int y = TEST_Y; y <= TEST_Y + 4; y++) {
 					for (int z = -8; z <= 8; z++) {
 						level.setBlockAndUpdate(new BlockPos(x, y, z), Blocks.AIR.defaultBlockState());
@@ -218,9 +221,15 @@ final class ClientTestHarness {
 		context.waitTick();
 	}
 
-	void mineBlockWithInput(BlockPos pos, int ticks) {
+	void mineBlockWithInput(BlockPos pos, int timeout) {
 		lookAt(pos);
-		context.getInput().holdMouseFor(InputConstants.MOUSE_BUTTON_LEFT, ticks);
+		context.getInput().holdMouse(InputConstants.MOUSE_BUTTON_LEFT);
+		try {
+			waitForServer(minecraftServer -> level(minecraftServer).getBlockState(pos).isAir(), timeout,
+				"Mining input did not break the block at " + pos);
+		} finally {
+			context.getInput().releaseMouse(InputConstants.MOUSE_BUTTON_LEFT);
+		}
 		context.waitTicks(2);
 	}
 
