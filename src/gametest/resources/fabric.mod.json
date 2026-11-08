@@ -5,7 +5,8 @@
 	"name": "Tech Reborn Test",
 	"entrypoints": {
 		"fabric-client-gametest": [
-			"techreborn.test.client.TechRebornClientTests"
+			"techreborn.test.client.TechRebornClientTests",
+			"techreborn.test.client.ElectrolyzerInputTests"
 		]
 	}
 }
