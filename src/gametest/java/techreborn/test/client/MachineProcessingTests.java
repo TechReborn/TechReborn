@@ -30,6 +30,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
@@ -57,6 +58,7 @@ final class MachineProcessingTests {
 		testIronFurnace(test);
 		testOverclockedElectricFurnace(test);
 		testOverclockedRecipeMachines(test);
+		testCombinedRecipePriority(test);
 		testBlockedOutput(test);
 	}
 
@@ -109,6 +111,43 @@ final class MachineProcessingTests {
 			}, 140, recipe.name() + " did not produce its expected output");
 			test.openUi(ClientTestHarness.INTERACTION_POS, GenericMachineBlockEntity.class, "processing-" + recipe.name());
 		}
+	}
+
+	// Five or more sulfuric acid cells also satisfy the sulfuric acid electrolysis recipe on their own.
+	private static void testCombinedRecipePriority(ClientTestHarness test) {
+		testElectrolyzerRecipe(test, "bone-meal", new ItemStack(Items.BONE_MEAL, 12), TRContent.Cells.SULFURIC_ACID.getStack(6),
+			TRContent.Cells.CALCIUM.getStack(4), TRContent.Cells.FLUORINE.getStack(2), TRContent.Dusts.PHOSPHOROUS.getStack(2));
+		testElectrolyzerRecipe(test, "saltpeter", TRContent.Dusts.SALTPETER.getStack(20), TRContent.Cells.SULFURIC_ACID.getStack(8),
+			TRContent.Cells.NITRIC_ACID.getStack(4), TRContent.Cells.POTASSIUM.getStack(4), TRContent.Dusts.SULFUR.getStack(8),
+			TRContent.Dusts.DARK_ASHES.getStack(4));
+	}
+
+	private static void testElectrolyzerRecipe(ClientTestHarness test, String name, ItemStack material, ItemStack cells, ItemStack... outputs) {
+		test.setBlock(ClientTestHarness.INTERACTION_POS, Blocks.AIR);
+		placeSolarPoweredMachine(test, TRContent.Machine.INDUSTRIAL_ELECTROLYZER.block);
+		test.onServer(server -> {
+			GenericMachineBlockEntity electrolyzer = ClientTestHarness.requireBlockEntity(server, ClientTestHarness.INTERACTION_POS, GenericMachineBlockEntity.class);
+			electrolyzer.inventory.setItem(0, material.copy());
+			electrolyzer.inventory.setItem(1, cells.copy());
+			for (int slot = 0; slot < electrolyzer.getUpgradeInventory().getContainerSize(); slot++) {
+				electrolyzer.getUpgradeInventory().setItem(slot, new ItemStack(TRContent.Upgrades.OVERCLOCKER));
+			}
+			electrolyzer.setChanged();
+		});
+		test.waitForServer(server -> {
+			GenericMachineBlockEntity electrolyzer = ClientTestHarness.requireBlockEntity(server, ClientTestHarness.INTERACTION_POS, GenericMachineBlockEntity.class);
+			if (!electrolyzer.inventory.getItem(0).isEmpty() || !electrolyzer.inventory.getItem(1).isEmpty()) {
+				return false;
+			}
+			for (int slot = 0; slot < 4; slot++) {
+				ItemStack expected = slot < outputs.length ? outputs[slot] : ItemStack.EMPTY;
+				if (!ItemStack.matches(electrolyzer.inventory.getItem(slot + 2), expected)) {
+					return false;
+				}
+			}
+			return true;
+		}, 300, "Industrial electrolyzer did not process " + name + " with sulfuric acid cells");
+		test.openUi(ClientTestHarness.INTERACTION_POS, GenericMachineBlockEntity.class, "processing-electrolyzer-" + name);
 	}
 
 	private static void testBlockedOutput(ClientTestHarness test) {
