@@ -182,21 +182,28 @@ public class RecipeCrafter implements IUpgradeHandler {
 	 * Checks that we can craft recipe and update recipe, max tick time and current tick time
 	 */
 	public void updateCurrentRecipe() {
+		// When several recipes match, prefer the one using the most ingredients so that a single-ingredient
+		// recipe does not take over an input meant for a recipe combining it with other items.
+		RebornRecipe bestRecipe = null;
 		for (RebornRecipe recipe : RecipeUtils.getRecipes(blockEntity.getLevel(), recipeType)) {
+			if (bestRecipe != null && recipe.ingredients().size() <= bestRecipe.ingredients().size()) continue;
 			if (!isValidRecipe(recipe)) continue;
+			bestRecipe = recipe;
+		}
 
-			// Reset progress if recipe changed
-			if (currentRecipe != recipe) {
-				currentTickTime = 0;
-			}
-			// Sets the current recipe
-			setCurrentRecipe(recipe);
-			this.currentNeededTicks = Math.max((int) (currentRecipe.time() * (1.0 - getSpeedMultiplier())), 1);
+		if (bestRecipe == null) {
+			// No matching recipe. Reset.
+			resetCrafter();
 			return;
 		}
 
-		// No matching recipe. Reset.
-		resetCrafter();
+		// Reset progress if recipe changed
+		if (currentRecipe != bestRecipe) {
+			currentTickTime = 0;
+		}
+		// Sets the current recipe
+		setCurrentRecipe(bestRecipe);
+		this.currentNeededTicks = Math.max((int) (currentRecipe.time() * (1.0 - getSpeedMultiplier())), 1);
 	}
 
 	/**
