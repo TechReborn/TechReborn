@@ -24,15 +24,12 @@
 
 package techreborn.world;
 
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import techreborn.init.TRContent;
-
-import java.util.function.Predicate;
 
 public record TROreFeatureConfig(Identifier id, TRContent.Ores ore, ResourceKey<Feature> feature, ResourceKey<PlacedFeature> placedFeature) {
 	public static TROreFeatureConfig of(TRContent.Ores ore) {
@@ -43,9 +40,5 @@ public record TROreFeatureConfig(Identifier id, TRContent.Ores ore, ResourceKey<
 			ResourceKey.create(Registries.FEATURE, id),
 			ResourceKey.create(Registries.PLACED_FEATURE, id)
 		);
-	}
-
-	public Predicate<BiomeSelectionContext> biomeSelector() {
-		return ore.distribution.dimension.biomeSelector;
 	}
 }

@@ -24,35 +24,27 @@
 
 package techreborn.world;
 
-import net.fabricmc.fabric.api.biome.v1.BiomeModificationContext;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
-import net.minecraft.tags.BiomeTags;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.grower.TreeGrower;
-import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.util.random.WeightedList;
-import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 // /fill ~ ~ ~ ~20 ~20 ~20 air replace #minecraft:base_stone_overworld
 public class WorldGenerator {
-	public static final List<TROreFeatureConfig> ORE_FEATURES = getOreFeatures();
+	public static final List<TROreFeatureConfig> ORE_FEATURES = Arrays.stream(TRContent.Ores.values())
+		.filter(ore -> ore.distribution != null)
+		.map(TROreFeatureConfig::of)
+		.toList();
 
 	public static final Identifier OIL_LAKE_ID = Identifier.fromNamespaceAndPath("techreborn", "oil_lake");
 	public static final ResourceKey<Feature> OIL_LAKE_FEATURE = ResourceKey.create(Registries.FEATURE, OIL_LAKE_ID);
@@ -74,56 +66,4 @@ public class WorldGenerator {
 		WeightedList.of(),
 		RUBBER_TREE_FEATURE
 	);
-
-	public static void initWorldGen() {
-		if (!TechRebornConfig.enableOreGeneration.get() && !TechRebornConfig.enableRubberTreeGeneration.get() && !TechRebornConfig.enableOilLakeGeneration.get()) {
-			return;
-		}
-
-		BiomeModifications.create(Identifier.fromNamespaceAndPath("techreborn", "features"))
-				.add(ModificationPhase.ADDITIONS, BiomeSelectors.all(), oreModifier())
-				.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(BiomeTags.IS_FOREST)
-					.or(BiomeSelectors.tag(BiomeTags.IS_TAIGA))
-					.or(BiomeSelectors.includeByKey(Biomes.SWAMP)), rubberTreeModifier())
-				.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(BiomeTags.IS_OVERWORLD), oilLakeModifier());
-	}
-
-	private static BiConsumer<BiomeSelectionContext, BiomeModificationContext> oreModifier() {
-		return (biomeSelectionContext, biomeModificationContext) -> {
-			if (!TechRebornConfig.enableOreGeneration.get()) {
-				return;
-			}
-
-			for (TROreFeatureConfig feature : ORE_FEATURES) {
-				if (feature.biomeSelector().test(biomeSelectionContext)) {
-					biomeModificationContext.getGenerationSettings().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, feature.placedFeature());
-				}
-			}
-		};
-	}
-
-	private static List<TROreFeatureConfig> getOreFeatures() {
-		return Arrays.stream(TRContent.Ores.values())
-				.filter(ores -> ores.distribution != null)
-				.filter(ores -> ores.distribution.isGenerating())
-				.map(TROreFeatureConfig::of)
-				.toList();
-	}
-
-	private static BiConsumer<BiomeSelectionContext, BiomeModificationContext> rubberTreeModifier() {
-		if (!TechRebornConfig.enableRubberTreeGeneration.get()) {
-			return (biomeSelectionContext, biomeModificationContext) -> {};
-		}
-
-		return (biomeSelectionContext, biomeModificationContext) ->
-				biomeModificationContext.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, RUBBER_TREE_PATCH_PLACED_FEATURE);
-	}
-
-	private static Consumer<BiomeModificationContext> oilLakeModifier(){
-		if (!TechRebornConfig.enableOilLakeGeneration.get()) {
-			return (biomeModificationContext) -> {};
-		}
-
-		return (biomeModificationContext) -> biomeModificationContext.getGenerationSettings().addFeature(GenerationStep.Decoration.LAKES, OIL_LAKE_PLACED_FEATURE);
-	}
 }

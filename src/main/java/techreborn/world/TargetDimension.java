@@ -25,23 +25,23 @@
 package techreborn.world;
 
 import io.netty.buffer.ByteBuf;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import java.util.function.Predicate;
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.biome.Biome;
 
 public enum TargetDimension {
-	OVERWORLD(BiomeSelectors.foundInOverworld()),
-	NETHER(BiomeSelectors.foundInTheNether()),
-	END(BiomeSelectors.foundInTheEnd());
+	OVERWORLD(BiomeTags.IS_OVERWORLD),
+	NETHER(BiomeTags.IS_NETHER),
+	END(BiomeTags.IS_END);
 
 	public static final StreamCodec<ByteBuf, TargetDimension> PACKET_CODEC = ByteBufCodecs.INT
 		.map(integer -> TargetDimension.values()[integer], Enum::ordinal);
 
-	public final Predicate<BiomeSelectionContext> biomeSelector;
+	public final TagKey<Biome> biomeTag;
 
-	TargetDimension(Predicate<BiomeSelectionContext> biomeSelector) {
-		this.biomeSelector = biomeSelector;
+	TargetDimension(TagKey<Biome> biomeTag) {
+		this.biomeTag = biomeTag;
 	}
 }

@@ -25,28 +25,29 @@
 package techreborn.world;
 
 import techreborn.config.TechRebornConfig;
+import reborncore.common.config.ConfigValue;
 
 import java.util.Objects;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 
 public enum OreDistribution {
-	BAUXITE(6, 12, VerticalAnchor.aboveBottom(0), 20, TargetDimension.OVERWORLD, TechRebornConfig.enableBauxiteOreGeneration.get()),
-	CINNABAR(6, 5, VerticalAnchor.aboveBottom(0), 128, TargetDimension.NETHER, TechRebornConfig.enableCinnabarOreGeneration.get()),
-	GALENA(8, 12, VerticalAnchor.aboveBottom(25), 40, TargetDimension.OVERWORLD, TechRebornConfig.enableGalenaOreGeneration.get()),
-	IRIDIUM(3, 4, VerticalAnchor.aboveBottom(0), 0, TargetDimension.OVERWORLD, TechRebornConfig.enableIridiumOreGeneration.get()),
-	LEAD(6, 16, VerticalAnchor.aboveBottom(40), 40, TargetDimension.OVERWORLD, TechRebornConfig.enableLeadOreGeneration.get()),
-	PERIDOT(6, 6, VerticalAnchor.aboveBottom(0), 360, TargetDimension.END, UniformInt.of(2,6), TechRebornConfig.enablePeridotOreGeneration.get()),
-	PYRITE(6, 6, VerticalAnchor.aboveBottom(0), 128, TargetDimension.NETHER, TechRebornConfig.enablePyriteOreGeneration.get()),
-	RUBY(6, 8, VerticalAnchor.absolute(20), 120, TargetDimension.OVERWORLD, UniformInt.of(2,6), TechRebornConfig.enableRubyOreGeneration.get()),
-	SAPPHIRE(6, 7, VerticalAnchor.absolute(20), 120, TargetDimension.OVERWORLD, UniformInt.of(2,6), TechRebornConfig.enableSapphireOreGeneration.get()),
-	SHELDONITE(6, 4, VerticalAnchor.aboveBottom(0), 360, TargetDimension.END, TechRebornConfig.enableSheldoniteOreGeneration.get()),
-	SILVER(6, 16, VerticalAnchor.aboveBottom(40), 60,TargetDimension.OVERWORLD, TechRebornConfig.enableSilverOreGeneration.get()),
-	SODALITE(6, 4, VerticalAnchor.aboveBottom(0), 360, TargetDimension.END, TechRebornConfig.enableSodaliteOreGeneration.get()),
-	SPHALERITE(6, 4, VerticalAnchor.aboveBottom(0), 128, TargetDimension.NETHER, TechRebornConfig.enableSphaleriteOreGeneration.get()),
-	TIN(8, 16, VerticalAnchor.absolute(25), 80, TargetDimension.OVERWORLD, TechRebornConfig.enableTinOreGeneration.get()),
-	TUNGSTEN(6, 3, VerticalAnchor.aboveBottom(0), 360, TargetDimension.END, TechRebornConfig.enableTungstenOreGeneration.get()),
-	URANIUM(4, 4, VerticalAnchor.aboveBottom(0), 32, TargetDimension.OVERWORLD, TechRebornConfig.enableUraniumOreGeneration.get());
+	BAUXITE(6, 12, VerticalAnchor.aboveBottom(0), 20, TargetDimension.OVERWORLD, TechRebornConfig.enableBauxiteOreGeneration),
+	CINNABAR(6, 5, VerticalAnchor.aboveBottom(0), 128, TargetDimension.NETHER, TechRebornConfig.enableCinnabarOreGeneration),
+	GALENA(8, 12, VerticalAnchor.aboveBottom(25), 40, TargetDimension.OVERWORLD, TechRebornConfig.enableGalenaOreGeneration),
+	IRIDIUM(3, 4, VerticalAnchor.aboveBottom(0), 0, TargetDimension.OVERWORLD, TechRebornConfig.enableIridiumOreGeneration),
+	LEAD(6, 16, VerticalAnchor.aboveBottom(40), 40, TargetDimension.OVERWORLD, TechRebornConfig.enableLeadOreGeneration),
+	PERIDOT(6, 6, VerticalAnchor.aboveBottom(0), 360, TargetDimension.END, UniformInt.of(2,6), TechRebornConfig.enablePeridotOreGeneration),
+	PYRITE(6, 6, VerticalAnchor.aboveBottom(0), 128, TargetDimension.NETHER, TechRebornConfig.enablePyriteOreGeneration),
+	RUBY(6, 8, VerticalAnchor.absolute(20), 120, TargetDimension.OVERWORLD, UniformInt.of(2,6), TechRebornConfig.enableRubyOreGeneration),
+	SAPPHIRE(6, 7, VerticalAnchor.absolute(20), 120, TargetDimension.OVERWORLD, UniformInt.of(2,6), TechRebornConfig.enableSapphireOreGeneration),
+	SHELDONITE(6, 4, VerticalAnchor.aboveBottom(0), 360, TargetDimension.END, TechRebornConfig.enableSheldoniteOreGeneration),
+	SILVER(6, 16, VerticalAnchor.aboveBottom(40), 60,TargetDimension.OVERWORLD, TechRebornConfig.enableSilverOreGeneration),
+	SODALITE(6, 4, VerticalAnchor.aboveBottom(0), 360, TargetDimension.END, TechRebornConfig.enableSodaliteOreGeneration),
+	SPHALERITE(6, 4, VerticalAnchor.aboveBottom(0), 128, TargetDimension.NETHER, TechRebornConfig.enableSphaleriteOreGeneration),
+	TIN(8, 16, VerticalAnchor.absolute(25), 80, TargetDimension.OVERWORLD, TechRebornConfig.enableTinOreGeneration),
+	TUNGSTEN(6, 3, VerticalAnchor.aboveBottom(0), 360, TargetDimension.END, TechRebornConfig.enableTungstenOreGeneration),
+	URANIUM(4, 4, VerticalAnchor.aboveBottom(0), 32, TargetDimension.OVERWORLD, TechRebornConfig.enableUraniumOreGeneration);
 
 	public final int veinSize;
 	public final int veinsPerChunk;
@@ -54,23 +55,19 @@ public enum OreDistribution {
 	public final int maxY; // Max height of ore in numbers of blocks from the bottom of the world
 	public final UniformInt experienceDropped;
 	public final TargetDimension dimension;
-	private final boolean generating;
+	public final ConfigValue<Boolean> generationEnabled;
 
-	OreDistribution(int veinSize, int veinsPerChunk, VerticalAnchor minOffset, int maxY, TargetDimension dimension, UniformInt experienceDropped, boolean generating) {
+	OreDistribution(int veinSize, int veinsPerChunk, VerticalAnchor minOffset, int maxY, TargetDimension dimension, UniformInt experienceDropped, ConfigValue<Boolean> generationEnabled) {
 		this.veinSize = veinSize;
 		this.veinsPerChunk = veinsPerChunk;
 		this.minOffset = minOffset;
 		this.maxY = maxY;
 		this.experienceDropped = Objects.requireNonNullElse(experienceDropped, UniformInt.of(0,0));
 		this.dimension = dimension;
-		this.generating = generating;
+		this.generationEnabled = generationEnabled;
 	}
 
-	OreDistribution(int veinSize, int veinsPerChunk, VerticalAnchor minOffset, int maxY, TargetDimension dimension, boolean generating) {
-		this(veinSize, veinsPerChunk, minOffset, maxY, dimension, null, generating);
-	}
-
-	public boolean isGenerating() {
-		return generating;
+	OreDistribution(int veinSize, int veinsPerChunk, VerticalAnchor minOffset, int maxY, TargetDimension dimension, ConfigValue<Boolean> generationEnabled) {
+		this(veinSize, veinsPerChunk, minOffset, maxY, dimension, null, generationEnabled);
 	}
 }

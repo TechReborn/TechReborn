@@ -37,7 +37,7 @@
   },
 	  "depends": {
 	    "fabricloader": ">=0.19.2",
-	    "fabric-api": ">=0.159.1+26.3",
+	    "fabric-api": ">=0.166.0+26.3",
 	    "reborncore": "*",
 	    "team_reborn_energy": ">=5.0.0",
 	    "minecraft": "~26.3"

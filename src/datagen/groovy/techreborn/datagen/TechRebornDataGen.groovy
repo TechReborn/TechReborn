@@ -63,6 +63,7 @@ import techreborn.datagen.tags.TRBlockTagProvider
 import techreborn.datagen.tags.TRItemTagProvider
 import techreborn.datagen.tags.TRPointOfInterestTagProvider
 import techreborn.datagen.dynamic.TRDynamicContent
+import techreborn.datagen.tags.TRBiomeTagProvider
 import techreborn.datagen.dynamic.TRDynamicProvider
 
 class TechRebornDataGen implements ModInitializer, DataGeneratorEntrypoint {
@@ -111,6 +112,7 @@ class TechRebornDataGen implements ModInitializer, DataGeneratorEntrypoint {
 		addProvider(pack, BlockLootTableProvider::new)
 
 		addProvider(pack, TRDynamicProvider::new)
+		addProvider(pack, TRBiomeTagProvider::new)
 		addProvider(pack, TRAdvancementProvider::new)
 	}
 

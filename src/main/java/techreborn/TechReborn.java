@@ -25,6 +25,7 @@
 package techreborn;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
 import net.minecraft.world.item.ItemStackTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,7 +49,7 @@ import techreborn.init.template.TechRebornTemplates;
 import techreborn.packets.Packets;
 import techreborn.packets.ServerboundPackets;
 import techreborn.utils.PoweredCraftingHandler;
-import techreborn.world.WorldGenerator;
+import techreborn.world.WorldgenConfigCondition;
 
 public class TechReborn implements ModInitializer {
 	public static final String MOD_ID = "techreborn";
@@ -73,7 +74,7 @@ public class TechReborn implements ModInitializer {
 			RecipeCrafter.soundHandler = new ModSounds.SoundHandler();
 		}
 		ModLoot.init();
-		WorldGenerator.initWorldGen();
+		ResourceConditions.register(WorldgenConfigCondition.TYPE);
 		//Force loads the block entities at the right time
 		//noinspection ResultOfMethodCallIgnored
 		TRBlockEntities.THERMAL_GEN.toString();
