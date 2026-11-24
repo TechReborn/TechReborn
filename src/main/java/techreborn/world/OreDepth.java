@@ -33,7 +33,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.levelgen.WorldGenerationContext;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
 import org.jspecify.annotations.Nullable;
 import techreborn.init.TRContent;
 
@@ -62,7 +62,7 @@ public record OreDepth(Identifier identifier, int minY, int maxY, TargetDimensio
 
 			if (ore.distribution != null) {
 				final Identifier blockId = BuiltInRegistries.BLOCK.getKey(ore.block);
-				final WorldGenerationContext heightContext = getHeightContext(server, ore.distribution.dimension);
+				final VerticalAnchor.Context heightContext = getHeightContext(server, ore.distribution.dimension);
 
 				if (heightContext == null) {
 					continue;
@@ -84,8 +84,7 @@ public record OreDepth(Identifier identifier, int minY, int maxY, TargetDimensio
 		return Collections.unmodifiableList(depths);
 	}
 
-	@Nullable
-	private static WorldGenerationContext getHeightContext(MinecraftServer server, TargetDimension dimension) {
+	private static VerticalAnchor.@Nullable Context getHeightContext(MinecraftServer server, TargetDimension dimension) {
 		ResourceKey<Level> key = switch (dimension) {
 			case OVERWORLD -> Level.OVERWORLD;
 			case NETHER ->  Level.NETHER;
@@ -98,6 +97,6 @@ public record OreDepth(Identifier identifier, int minY, int maxY, TargetDimensio
 			return null;
 		}
 
-		return new WorldGenerationContext(world.getChunkSource().getGenerator(), world);
+		return VerticalAnchor.Context.from(world.getChunkSource().getGenerator(), world);
 	}
 }

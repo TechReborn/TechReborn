@@ -26,15 +26,19 @@ package techreborn.client;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.client.renderer.item.ItemModels;
-import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperties;
+import net.minecraft.client.core.registries.BuiltInClientRegistries;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import org.jspecify.annotations.Nullable;
 import reborncore.client.ClientJumpEvent;
 import reborncore.client.gui.GuiBase;
@@ -49,6 +53,7 @@ import techreborn.client.render.entitys.CableCoverRenderer;
 import techreborn.client.render.entitys.NukeRenderer;
 import techreborn.client.render.entitys.StorageUnitRenderer;
 import techreborn.client.render.entitys.TurbineRenderer;
+import techreborn.entities.EntityNukePrimed;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
@@ -56,9 +61,9 @@ public class TechRebornClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		ItemModels.ID_MAPPER.put(ItemCellModel.ID, ItemCellModel.Unbaked.CODEC);
-		ItemModels.ID_MAPPER.put(ItemBucketModel.ID, ItemBucketModel.Unbaked.CODEC);
-		SelectItemModelProperties.ID_MAPPER.put(ActiveProperty.ID, ActiveProperty.TYPE);
+		Registry.register(BuiltInClientRegistries.ITEM_MODEL_TYPE, ItemCellModel.ID, ItemCellModel.Unbaked.CODEC);
+		Registry.register(BuiltInClientRegistries.ITEM_MODEL_TYPE, ItemBucketModel.ID, ItemBucketModel.Unbaked.CODEC);
+		Registry.register(BuiltInClientRegistries.SELECT_ITEM_MODEL_PROPERTY_TYPE, ActiveProperty.ID, ActiveProperty.TYPE);
 
 		KeyBindings.registerKeys();
 
@@ -96,21 +101,22 @@ public class TechRebornClient implements ClientModInitializer {
 		// 	ChunkSectionLayerMap.putFluid(fluid.getFlowingFluid(), ChunkSectionLayer.TRANSLUCENT);
 		// }
 
-		BlockEntityRenderers.register(TRBlockEntities.INDUSTRIAL_GRINDER, MultiblockRenderer::new);
-		BlockEntityRenderers.register(TRBlockEntities.FUSION_CONTROL_COMPUTER, MultiblockRenderer::new);
-		BlockEntityRenderers.register(TRBlockEntities.INDUSTRIAL_BLAST_FURNACE, MultiblockRenderer::new);
-		BlockEntityRenderers.register(TRBlockEntities.VACUUM_FREEZER, MultiblockRenderer::new);
-		BlockEntityRenderers.register(TRBlockEntities.FLUID_REPLICATOR, MultiblockRenderer::new);
-		BlockEntityRenderers.register(TRBlockEntities.INDUSTRIAL_SAWMILL, MultiblockRenderer::new);
-		BlockEntityRenderers.register(TRBlockEntities.DISTILLATION_TOWER, MultiblockRenderer::new);
-		BlockEntityRenderers.register(TRBlockEntities.IMPLOSION_COMPRESSOR, MultiblockRenderer::new);
-		BlockEntityRenderers.register(TRBlockEntities.GREENHOUSE_CONTROLLER, MultiblockRenderer::new);
-		BlockEntityRenderers.register(TRBlockEntities.NUCLEAR_REACTOR, MultiblockRenderer::new);
-		BlockEntityRenderers.register(TRBlockEntities.STORAGE_UNIT, StorageUnitRenderer::new);
-		BlockEntityRenderers.register(TRBlockEntities.CABLE, CableCoverRenderer::new);
-		BlockEntityRenderers.register(TRBlockEntities.WIND_MILL, TurbineRenderer::new);
+		registerBlockEntityRenderer(TRBlockEntities.INDUSTRIAL_GRINDER, MultiblockRenderer::new);
+		registerBlockEntityRenderer(TRBlockEntities.FUSION_CONTROL_COMPUTER, MultiblockRenderer::new);
+		registerBlockEntityRenderer(TRBlockEntities.INDUSTRIAL_BLAST_FURNACE, MultiblockRenderer::new);
+		registerBlockEntityRenderer(TRBlockEntities.VACUUM_FREEZER, MultiblockRenderer::new);
+		registerBlockEntityRenderer(TRBlockEntities.FLUID_REPLICATOR, MultiblockRenderer::new);
+		registerBlockEntityRenderer(TRBlockEntities.INDUSTRIAL_SAWMILL, MultiblockRenderer::new);
+		registerBlockEntityRenderer(TRBlockEntities.DISTILLATION_TOWER, MultiblockRenderer::new);
+		registerBlockEntityRenderer(TRBlockEntities.IMPLOSION_COMPRESSOR, MultiblockRenderer::new);
+		registerBlockEntityRenderer(TRBlockEntities.GREENHOUSE_CONTROLLER, MultiblockRenderer::new);
+		registerBlockEntityRenderer(TRBlockEntities.NUCLEAR_REACTOR, MultiblockRenderer::new);
+		registerBlockEntityRenderer(TRBlockEntities.STORAGE_UNIT, StorageUnitRenderer::new);
+		registerBlockEntityRenderer(TRBlockEntities.CABLE, CableCoverRenderer::new);
+		registerBlockEntityRenderer(TRBlockEntities.WIND_MILL, TurbineRenderer::new);
 
-		EntityRendererRegistry.register(TRContent.ENTITY_NUKE, NukeRenderer::new);
+		EntityRendererProvider<EntityNukePrimed> nukeRenderer = NukeRenderer::new;
+		Registry.register(BuiltInClientRegistries.ENTITY_RENDERER, BuiltInRegistries.ENTITY_TYPE.getKey(TRContent.ENTITY_NUKE), nukeRenderer);
 
 		ClientGuiType.AESU.toString();
 
@@ -119,6 +125,12 @@ public class TechRebornClient implements ClientModInitializer {
 		// TODO 26.1: MachineFaceElementRenderer.BLACKLIST — check if MachineFaceElementRenderer still exists in RebornCore
 		// MachineFaceElementRenderer.BLACKLIST.add(Identifier.fromNamespaceAndPath("techreborn", "block/machines/tier2_machines/fishing_station_net"));
 		// MachineFaceElementRenderer.BLACKLIST.add(Identifier.fromNamespaceAndPath("techreborn", "block/machines/tier2_machines/fishing_station_net_side"));
+	}
+
+	private static <T extends BlockEntity, S extends BlockEntityRenderState> void registerBlockEntityRenderer(
+		BlockEntityType<T> type, BlockEntityRendererProvider<T, S> renderer
+	) {
+		Registry.register(BuiltInClientRegistries.BLOCK_ENTITY_RENDERER, BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(type), renderer);
 	}
 
 	//Need the item instance in a few places, this makes it easier

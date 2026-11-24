@@ -24,6 +24,7 @@
 
 package reborncore.mixin.common;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -38,7 +39,7 @@ public class MixinBucketItem implements ItemFluidInfo {
 
 	@Shadow
 	@Final
-	private Fluid content;
+	protected Fluid content;
 
 	@Override
 	public ItemStack getEmpty() {
@@ -47,7 +48,7 @@ public class MixinBucketItem implements ItemFluidInfo {
 
 	@Override
 	public ItemStack getFull(Fluid fluid) {
-		return new ItemStack(fluid.getBucket());
+		return new ItemStack(BuiltInRegistries.ITEM.getOrThrow(fluid.getBucket()));
 	}
 
 	@Override

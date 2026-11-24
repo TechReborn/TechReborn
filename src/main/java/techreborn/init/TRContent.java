@@ -25,7 +25,6 @@
 package techreborn.init;
 
 import com.google.common.base.Preconditions;
-import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
 import net.fabricmc.fabric.api.tag.convention.v2.TagUtil;
 import net.minecraft.core.Registry;
@@ -126,8 +125,8 @@ import net.minecraft.world.level.material.Fluids;
 
 public class TRContent {
 	public static final Marker DATAGEN = MarkerFactory.getMarker("datagen");
-	public static final BlockSetType RUBBER_WOOD_SET_TYPE = BlockSetTypeBuilder.copyOf(BlockSetType.OAK).build(Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "rubber_wood"));
-	public static final WoodType RUBBER_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.OAK).register(Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "rubber_wood"), RUBBER_WOOD_SET_TYPE);
+	public static final BlockSetType RUBBER_WOOD_SET_TYPE = BlockSetType.DEFAULT_WOOD;
+	public static final WoodType RUBBER_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.OAK).build(Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "rubber_wood"), RUBBER_WOOD_SET_TYPE);
 
 	// Misc Blocks
 	public static Block COMPUTER_CUBE;

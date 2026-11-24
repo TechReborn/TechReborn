@@ -38,13 +38,13 @@ import com.mojang.renderpearl.api.commands.RenderPass;
 import com.mojang.renderpearl.api.textures.GpuTexture;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.render.GuiRenderer;
 import net.minecraft.client.renderer.Projection;
 import net.minecraft.client.renderer.ProjectionMatrixBuffer;
 import net.minecraft.client.renderer.RenderBuffers;
+import net.minecraft.client.renderer.RenderPassLayouts;
 import net.minecraft.client.renderer.SubmitNodeStorage;
 import net.minecraft.client.renderer.feature.FeatureRenderDispatcher;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
@@ -59,8 +59,6 @@ import org.joml.Matrix4fStack;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Optional;
-import java.util.OptionalDouble;
 
 public class ItemStackRenderer implements HudElement {
 	private static final int SIZE = 512;
@@ -69,7 +67,7 @@ public class ItemStackRenderer implements HudElement {
 	private static Projection guiProjection;
 
 	@Override
-	public void extractRenderState(GuiGraphicsExtractor drawContext, DeltaTracker tickCounter) {
+	public void extractRenderState(GuiGraphicsExtractor drawContext) {
 		ItemStack itemStack = ItemStackRenderManager.RENDER_QUEUE.poll();
 		if (itemStack != null) {
 			if (guiProjectionMatrix == null) {
@@ -108,7 +106,6 @@ public class ItemStackRenderer implements HudElement {
 			guiProjection.setupOrtho(1000.0F, 11000.0F, window.getWidth() / scaleFactor, window.getHeight() / scaleFactor, true);
 			RenderSystem.setProjectionMatrix(guiProjectionMatrix.getBuffer(guiProjection), ProjectionType.ORTHOGRAPHIC);
 			modelViewStack.translate(0, 0, -11000);
-			RenderSystem.enableScissorForRenderTypeDraws(0, framebuffer.height - drawSize, drawSize, drawSize);
 
 			PoseStack poseStack = new PoseStack();
 			poseStack.pushPose();
@@ -138,19 +135,18 @@ public class ItemStackRenderer implements HudElement {
 					FeatureRenderDispatcher.PreparedFrame frame = renderDispatcher.prepareFrame(submitNodeStorage);
 					RenderPass renderPass = RenderSystem.getDevice().createCommandEncoder().createRenderPass(
 						() -> "RebornCore item export",
+						RenderPassLayouts.COLOR_DEPTH,
 						framebuffer.getColorTextureView(),
-						Optional.empty(),
-						framebuffer.getDepthTextureView(),
-						OptionalDouble.empty()
+						framebuffer.getDepthTextureView()
 					)
 				) {
+					renderPass.enableScissor(0, framebuffer.height - drawSize, drawSize, drawSize);
 					RenderSystem.bindDefaultUniforms(renderPass);
 					FeatureRenderDispatcher.renderAllFeatures(renderPass, frame);
 				}
 			}
 			poseStack.popPose();
 		} finally {
-			RenderSystem.disableScissorForRenderTypeDraws();
 			modelViewStack.popMatrix();
 			RenderSystem.restoreProjectionMatrix();
 		}
@@ -166,23 +162,12 @@ public class ItemStackRenderer implements HudElement {
 			(long) drawSize * drawSize * pixelSize
 		);
 		CommandEncoder commandEncoder = RenderSystem.getDevice().createCommandEncoder();
-		commandEncoder.copyTextureToBuffer(
-			gpuTexture,
-			gpuBuffer,
-			0,
-			() -> {
-				try (GpuBufferSlice.MappedView readView = gpuBuffer.map(true, false)) {
-					writeImage(readView.data(), pixelSize, drawSize, identifier);
-				} finally {
-					gpuBuffer.close();
-				}
-			},
-			0,
-			0,
-			framebuffer.height - drawSize,
-			drawSize,
-			drawSize
-		);
+		commandEncoder.copyTextureToBuffer(gpuTexture, gpuBuffer, 0, 0, 0, framebuffer.height - drawSize, drawSize, drawSize);
+		RenderSystem.queueFencedTask(() -> {
+			try (gpuBuffer; GpuBufferSlice.MappedView readView = gpuBuffer.map(true, false)) {
+				writeImage(readView.data(), pixelSize, drawSize, identifier);
+			}
+		});
 	}
 
 	private static void writeImage(ByteBuffer imageData, int pixelSize, int drawSize, Identifier identifier) {

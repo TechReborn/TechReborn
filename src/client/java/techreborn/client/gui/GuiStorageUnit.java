@@ -44,8 +44,10 @@ public class GuiStorageUnit extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	public void extractBackground(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY, final float f) {
-		super.extractBackground(drawContext, mouseX, mouseY, f);
+	public void extractBackground(GuiGraphicsExtractor drawContext) {
+		int mouseX = drawContext.mouseX();
+		int mouseY = drawContext.mouseY();
+		super.extractBackground(drawContext);
 		final Layer layer = Layer.BACKGROUND;
 
 		// Draw slots
@@ -56,8 +58,8 @@ public class GuiStorageUnit extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void extractLabels(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY) {
-		super.extractLabels(drawContext, mouseX, mouseY);
+	protected void extractLabels(GuiGraphicsExtractor drawContext) {
+		super.extractLabels(drawContext);
 
 		// Draw in/out labels
 		builder.drawText(drawContext, this, Component.translatable("gui.techreborn.unit.in"), 100, 43, theme.titleColor().rgba());

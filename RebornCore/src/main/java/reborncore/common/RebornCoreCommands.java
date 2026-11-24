@@ -27,15 +27,17 @@ package reborncore.common;
 import com.google.common.collect.ImmutableList;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.StringArgumentType;
+import net.minecraft.commands.arguments.StringArgument;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.commands.CommandBuildContext;
+import net.minecraft.commands.CommandPermissionLevels;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.commands.SharedSuggestionProvider;
+import net.minecraft.commands.suggestions.SuggestionContext;
+import net.minecraft.commands.suggestions.SuggestionProviders;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.commands.arguments.item.ItemArgument;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -43,8 +45,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.permissions.Permission;
-import net.minecraft.server.permissions.PermissionLevel;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.chunk.status.ChunkStatus;
@@ -60,17 +60,18 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
-import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
-import static com.mojang.brigadier.arguments.StringArgumentType.word;
+import static net.minecraft.commands.arguments.IntegerArgument.getInteger;
+import static net.minecraft.commands.arguments.IntegerArgument.integer;
+import static net.minecraft.commands.arguments.StringArgument.word;
 import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.Commands.hasPermission;
 import static net.minecraft.commands.Commands.literal;
 
 public class RebornCoreCommands {
 
 	private final static ExecutorService EXECUTOR_SERVICE = Executors.newSingleThreadExecutor();
-	private final static SuggestionProvider<CommandSourceStack> MOD_SUGGESTIONS = (context, builder) ->
-			SharedSuggestionProvider.suggest(FabricLoader.getInstance().getAllMods().stream().map(modContainer -> modContainer.getMetadata().getId()), builder);
+	private final static SuggestionProvider<CommandSourceStack> MOD_SUGGESTIONS = SuggestionProviders.serverOnly((server, context, builder) ->
+			SuggestionContext.suggest(FabricLoader.getInstance().getAllMods().stream().map(modContainer -> modContainer.getMetadata().getId()), builder));
 
 	public static void setup() {
 		CommandRegistrationCallback.EVENT.register((RebornCoreCommands::addCommands));
@@ -82,7 +83,7 @@ public class RebornCoreCommands {
 
 					.then(
 						literal("generate")
-							.requires(source -> source.permissions().hasPermission(new Permission.HasCommandLevel(PermissionLevel.ADMINS)))
+							.requires(hasPermission(CommandPermissionLevels.LEVEL_ADMINS))
 							.then(argument("size", integer())
 									.executes(RebornCoreCommands::generate)
 							)
@@ -90,7 +91,7 @@ public class RebornCoreCommands {
 
 					.then(
 						literal("flyspeed")
-							.requires(source -> source.permissions().hasPermission(new Permission.HasCommandLevel(PermissionLevel.ADMINS)))
+							.requires(hasPermission(CommandPermissionLevels.LEVEL_ADMINS))
 							.then(argument("speed", integer(1, 10))
 									.executes(ctx -> flySpeed(ctx, ImmutableList.of(ctx.getSource().getPlayer())))
 									.then(Commands.argument("players", EntityArgument.players())
@@ -112,7 +113,7 @@ public class RebornCoreCommands {
 							.then(
 								literal("item")
 									.then(
-										argument("item", ItemArgument.item(registryAccess))
+										argument("item", ItemArgument.item())
 										.executes(RebornCoreCommands::itemRenderer)
 									)
 							)
@@ -156,7 +157,7 @@ public class RebornCoreCommands {
 	}
 
 	private static int renderMod(CommandContext<CommandSourceStack> ctx) {
-		String modid = StringArgumentType.getString(ctx, "modid");
+		String modid = StringArgument.getString(ctx, "modid");
 
 		List<ItemStack> list = BuiltInRegistries.ITEM.keySet().stream()
 				.filter(identifier -> identifier.getNamespace().equals(modid))

@@ -28,10 +28,10 @@
 		}
 	],
 	"depends": {
-		"fabricloader": ">=0.19.2",
-		"fabric-api": ">=0.159.1+26.3",
+		"fabricloader": ">=0.20.1",
+		"fabric-api": ">=0.167.1+26.4",
 		"team_reborn_energy": ">=5.0.0",
-		"minecraft": "~26.3"
+		"minecraft": ">=26.4-pre.1 <26.5"
 	},
 	"breaks": {
 		"quilt_loader": "*"

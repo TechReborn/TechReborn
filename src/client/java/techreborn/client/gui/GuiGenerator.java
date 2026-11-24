@@ -40,8 +40,8 @@ public class GuiGenerator extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	public void extractBackground(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY, final float f) {
-		super.extractBackground(drawContext, mouseX, mouseY, f);
+	public void extractBackground(GuiGraphicsExtractor drawContext) {
+		super.extractBackground(drawContext);
 		final Layer layer = Layer.BACKGROUND;
 
 		drawSlot(drawContext, 8, 72, layer);
@@ -49,8 +49,10 @@ public class GuiGenerator extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void extractLabels(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY) {
-		super.extractLabels(drawContext, mouseX, mouseY);
+	protected void extractLabels(GuiGraphicsExtractor drawContext) {
+		int mouseX = drawContext.mouseX();
+		int mouseY = drawContext.mouseY();
+		super.extractLabels(drawContext);
 		final Layer layer = Layer.FOREGROUND;
 
 		builder.drawBurnBar(drawContext, this, blockEntity.getScaledBurnTime(100), 100, 81, 38, mouseX, mouseY, layer);

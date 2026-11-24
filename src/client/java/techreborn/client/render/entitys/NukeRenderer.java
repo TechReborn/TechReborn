@@ -34,7 +34,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.TntMinecartRenderer;
 import net.minecraft.client.renderer.entity.state.TntRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
-import net.minecraft.util.Mth;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.init.TRContent;
 
@@ -62,7 +61,7 @@ public class NukeRenderer extends EntityRenderer<EntityNukePrimed, TntRenderStat
 		matrixStack.translate(1D, 0.5D, 0);
 		if (state.fuseRemainingInTicks < 10.0F) {
 			float h = 1.0F - state.fuseRemainingInTicks / 10.0F;
-			h = Mth.clamp(h, 0.0F, 1.0F);
+			h = Math.clamp(h, 0.0F, 1.0F);
 			h *= h;
 			h *= h;
 			float j = 1.0F + h * 0.3F;

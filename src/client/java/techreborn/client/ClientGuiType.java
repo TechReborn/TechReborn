@@ -24,7 +24,8 @@
 
 package techreborn.client;
 
-import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.core.registries.BuiltInClientRegistries;
+import net.minecraft.core.Registry;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import techreborn.blockentity.GuiType;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
@@ -123,6 +124,6 @@ public record ClientGuiType<T extends BlockEntity>(GuiType<T> guiType, GuiFactor
 		this.guiType = Objects.requireNonNull(guiType);
 		this.guiFactory = Objects.requireNonNull(guiFactory);
 
-		MenuScreens.register(guiType.getScreenHandlerType(), guiFactory());
+		Registry.register(BuiltInClientRegistries.MENU_SCREEN, guiType.getIdentifier(), guiFactory);
 	}
 }

@@ -72,7 +72,9 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 		}
 
 		@Override
-		public void extractContents(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
+		public void extractContents(GuiGraphicsExtractor context) {
+			int mouseX = context.mouseX();
+			int mouseY = context.mouseY();
 			context.item(EXP_BUTTON_STACK, getX(), getY());
 
 			if (isHovered) {
@@ -112,8 +114,8 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	public void extractBackground(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY, final float lastFrameDuration) {
-		super.extractBackground(drawContext, mouseX, mouseY, lastFrameDuration);
+	public void extractBackground(GuiGraphicsExtractor drawContext) {
+		super.extractBackground(drawContext);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		// Input slot
@@ -125,8 +127,10 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void extractLabels(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
-		super.extractLabels(drawContext, mouseX, mouseY);
+	protected void extractLabels(GuiGraphicsExtractor drawContext) {
+		int mouseX = drawContext.mouseX();
+		int mouseY = drawContext.mouseY();
+		super.extractLabels(drawContext);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
 		builder.drawProgressBar(drawContext, this, blockEntity.getProgressScaled(100), 100, 85, 36, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);

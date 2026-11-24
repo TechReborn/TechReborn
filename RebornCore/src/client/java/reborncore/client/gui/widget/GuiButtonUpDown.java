@@ -48,7 +48,7 @@ public class GuiButtonUpDown extends GuiButtonExtended {
 	}
 
 	@Override
-	public void extractContents(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float partialTicks) {
+	public void extractContents(GuiGraphicsExtractor drawContext) {
 		if (gui.hideGuiElements()) return;
 		drawSpriteStretched(drawContext, type.spriteIdentifier, getX(), getY(), getWidth(), getHeight());
 	}

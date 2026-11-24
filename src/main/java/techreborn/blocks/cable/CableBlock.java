@@ -73,7 +73,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.redstone.Orientation;
@@ -151,7 +150,7 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
 			if (state.getValue(COVERED) && !playerIn.isShiftKeyDown()) {
 				((CableBlockEntity) blockEntity).setCover(null);
 				worldIn.setBlockAndUpdate(pos, state.setValue(COVERED, false));
-				worldIn.playSound(playerIn, pos, SoundEvents.WOOD_BREAK, SoundSource.BLOCKS, 0.6F, 1.0F);
+				worldIn.playSound(playerIn, pos, SoundEvents.WOOD.breakSound().orElseThrow().value(), SoundSource.BLOCKS, 0.6F, 1.0F);
 				if (!worldIn.isClientSide()) {
 					Containers.dropItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), TRContent.Plates.WOOD.getStack());
 				}
@@ -166,7 +165,7 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
 		if (!state.getValue(COVERED) && !type.canKill
 				&& stack.getItem() == TRContent.Plates.WOOD.asItem()) {
 			worldIn.setBlockAndUpdate(pos, state.setValue(COVERED, true));
-			worldIn.playSound(playerIn, pos, SoundEvents.WOOD_PLACE, SoundSource.BLOCKS, 0.6F, 1.0F);
+			worldIn.playSound(playerIn, pos, SoundEvents.WOOD.placeSound().orElseThrow().value(), SoundSource.BLOCKS, 0.6F, 1.0F);
 			if (!worldIn.isClientSide() && !playerIn.isCreative()) {
 				stack.shrink(1);
 			}
@@ -267,13 +266,13 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
 	}
 
 	@Override
-	public boolean canPlaceLiquid(LivingEntity player, BlockGetter view, BlockPos pos, BlockState state, Fluid fluid) {
+	public boolean canPlaceLiquid(LivingEntity player, BlockGetter view, BlockPos pos, BlockState state, FluidState fluid) {
 		return !state.getValue(COVERED) && SimpleWaterloggedBlock.super.canPlaceLiquid(player, view, pos, state, fluid);
 	}
 
 	@Override
 	public FluidState getFluidState(BlockState state) {
-		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource() : super.getFluidState(state);
 	}
 
 	@Override

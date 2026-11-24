@@ -25,7 +25,7 @@
 package reborncore.client.gui;
 
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.gui.GuiPipeline;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.resources.Identifier;
@@ -90,7 +90,7 @@ public final class GuiSprites {
 		final TextureAtlasSprite sprite = GuiBase.getSprite(spriteIdentifier);
 
 		drawContext.blitSprite(
-			RenderPipelines.GUI_TEXTURED,
+			GuiPipeline.TEXTURED,
 			sprite,
 			x,
 			y,

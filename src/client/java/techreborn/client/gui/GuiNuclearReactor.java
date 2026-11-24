@@ -62,7 +62,7 @@ public class GuiNuclearReactor extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	public void extractBackground(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float lastFrameDuration) {
+	public void extractBackground(GuiGraphicsExtractor drawContext) {
 		// Note: we override the entire background drawing to fit the custom layout
 		// of the reactor. Draw background for the side where we generally have
 		// upgrades, but in this case we will have the energy bar and the multiblock
@@ -131,7 +131,9 @@ public class GuiNuclearReactor extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void extractLabels(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+	protected void extractLabels(GuiGraphicsExtractor drawContext) {
+		int mouseX = drawContext.mouseX();
+		int mouseY = drawContext.mouseY();
 		// Draw title
 		drawTitle(drawContext);
 

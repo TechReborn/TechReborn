@@ -25,14 +25,13 @@
 package techreborn.init.template;
 
 import com.mojang.brigadier.Command;
-import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.commands.CommandPermissionLevels;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.arguments.StringArgument;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.permissions.Permission;
-import net.minecraft.server.permissions.PermissionLevel;
 import techreborn.init.TRContent;
 
 import java.io.IOException;
@@ -41,18 +40,22 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import static com.mojang.brigadier.arguments.StringArgumentType.greedyString;
+import static net.minecraft.commands.arguments.StringArgument.greedyString;
 import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.Commands.hasPermission;
 import static net.minecraft.commands.Commands.literal;
 
 public class TechRebornTemplates {
 
 	public static void init() {
+		if (!FabricLoader.getInstance().isDevelopmentEnvironment()) {
+			return;
+		}
+
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(
 				literal("techreborn")
 						.then(literal("template")
-								.requires(source -> source.permissions().hasPermission(new Permission.HasCommandLevel(PermissionLevel.ADMINS)))
-								.requires(source -> FabricLoader.getInstance().isDevelopmentEnvironment())
+								.requires(hasPermission(CommandPermissionLevels.LEVEL_ADMINS))
 								.then(literal("generate")
 										.then(
 												argument("path", greedyString())
@@ -64,7 +67,7 @@ public class TechRebornTemplates {
 	}
 
 	private static int process(CommandContext<CommandSourceStack> ctx) {
-		Path path = Paths.get(StringArgumentType.getString(ctx, "path"));
+		Path path = Paths.get(StringArgument.getString(ctx, "path"));
 		TemplateProcessor processor = new TemplateProcessor(path);
 
 		try {

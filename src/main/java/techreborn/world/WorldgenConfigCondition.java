@@ -33,7 +33,7 @@ import com.mojang.serialization.DataResult;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType;
 import net.minecraft.resources.Identifier;
-import net.minecraft.resources.RegistryOps;
+import net.minecraft.core.HolderGetter;
 import reborncore.common.config.ConfigValue;
 import techreborn.config.TechRebornConfig;
 
@@ -64,7 +64,7 @@ public record WorldgenConfigCondition(String config) implements ResourceConditio
 	}
 
 	@Override
-	public boolean test(RegistryOps.RegistryInfoLookup registryInfo) {
+	public boolean test(HolderGetter.Provider registries) {
 		return CONFIG_VALUES.get(config).get();
 	}
 }

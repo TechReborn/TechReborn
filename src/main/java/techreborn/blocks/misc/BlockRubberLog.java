@@ -24,7 +24,6 @@
 
 package techreborn.blocks.misc;
 
-import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -39,6 +38,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.FireBlock;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -69,7 +70,7 @@ public class BlockRubberLog extends RotatedPillarBlock {
 	public BlockRubberLog(String name) {
 		super(TRBlockSettings.rubberLog(name));
 		this.registerDefaultState(this.defaultBlockState().setValue(SAP_SIDE, Direction.NORTH).setValue(HAS_SAP, false).setValue(SHOULD_SAP, true).setValue(AXIS, Direction.Axis.Y));
-		FlammableBlockRegistry.getDefaultInstance().add(this, 5, 5);
+		((FireBlock) Blocks.FIRE).setFlammable(this, 5, 5);
 	}
 
 	@Override

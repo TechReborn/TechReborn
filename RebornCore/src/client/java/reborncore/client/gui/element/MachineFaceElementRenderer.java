@@ -36,7 +36,7 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.BlockModelRenderState;
 import net.minecraft.client.renderer.state.gui.BlitRenderState;
 import net.minecraft.client.renderer.state.gui.GuiRenderState;
-import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.gui.GuiPipeline;
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 import net.minecraft.client.resources.model.geometry.BakedQuad;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -172,7 +172,7 @@ public class MachineFaceElementRenderer extends PictureInPictureRenderer<Machine
 			float u1 = i / 6F;
 			float u2 = (i + 1) / 6F;
 			state.addBlitToCurrentLayer(new BlitRenderState(
-				RenderPipelines.GUI_TEXTURED_PREMULTIPLIED_ALPHA,
+				GuiPipeline.TEXTURED_PREMULTIPLIED_ALPHA,
 				texture,
 				pose,
 				left,

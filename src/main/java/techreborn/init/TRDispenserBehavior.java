@@ -24,8 +24,25 @@
 
 package techreborn.init;
 
+import com.mojang.serialization.MapCodec;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.dispenser.BlockSource;
+import net.minecraft.core.dispenser.DispenseBehavior;
+import net.minecraft.core.dispenser.DropItemDispenseBehavior;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.BucketPickup;
+import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FlowingFluid;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import reborncore.common.crafting.RecipeUtils;
-import reborncore.common.fluid.RebornBucketItem;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
@@ -33,121 +50,83 @@ import techreborn.items.CellItem;
 import techreborn.recipe.recipes.ScrapBoxRecipe;
 
 import java.util.List;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.Position;
-import net.minecraft.core.dispenser.BlockSource;
-import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.BucketPickup;
-import net.minecraft.world.level.block.DispenserBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.FlowingFluid;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.Fluids;
 
-/**
- * Created by drcrazy on 10-Jan-20 for TechReborn-1.15.
- */
-public class TRDispenserBehavior {
-
+public final class TRDispenserBehavior {
 	public static void init() {
+		Registry.register(BuiltInRegistries.DISPENSE_BEHAVIOR_TYPE, Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "cell"), CellDispenseBehavior.CODEC);
+		Registry.register(BuiltInRegistries.DISPENSE_BEHAVIOR_TYPE, Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "scrap_box"), ScrapBoxDispenseBehavior.CODEC);
+	}
+
+	public static Item.Properties cell(Item.Properties properties) {
+		return properties.component(DataComponents.DISPENSE_BEHAVIOR, Holder.direct(List.of(CellDispenseBehavior.INSTANCE, DropItemDispenseBehavior.INSTANCE)));
+	}
+
+	public static Item.Properties scrapBox(Item.Properties properties) {
 		if (TechRebornConfig.dispenseScrapboxes.get()) {
-			DispenserBlock.registerBehavior(TRContent.SCRAP_BOX, new DefaultDispenseItemBehavior() {
-				public ItemStack execute(BlockSource pointer, ItemStack stack) {
-					List<ScrapBoxRecipe> scrapboxRecipeList = RecipeUtils.getRecipes(pointer.level(), ModRecipes.SCRAPBOX);
-					int random = RandomSource.create().nextInt(scrapboxRecipeList.size());
-					ItemStack out = scrapboxRecipeList.get(random).outputs().getFirst().create();
-					stack.split(1);
-
-					Direction facing = pointer.state().getValue(DispenserBlock.FACING);
-					Position position = DispenserBlock.getDispensePosition(pointer);
-					spawnItem(pointer.level(), out, 6, facing, position);
-					return stack;
-				}
-			});
+			properties.component(DataComponents.DISPENSE_BEHAVIOR, Holder.direct(List.of(ScrapBoxDispenseBehavior.INSTANCE)));
 		}
+		return properties;
+	}
 
-		DefaultDispenseItemBehavior cellBehavior = new DefaultDispenseItemBehavior() {
-			public ItemStack execute(BlockSource pointer, ItemStack stack) {
-				CellItem cell = (CellItem) stack.getItem();
-				LevelAccessor iWorld = pointer.level();
-				BlockPos blockPos = pointer.pos().relative(pointer.state().getValue(DispenserBlock.FACING));
-				BlockState blockState = iWorld.getBlockState(blockPos);
-				Block block = blockState.getBlock();
-				if (cell.getCellFluid() == Fluids.EMPTY) {
-					// fill cell
-					if (block instanceof BucketPickup) {
-						ItemStack fluidContainer = ((BucketPickup) block).pickupBlock(null, iWorld, blockPos, blockState);
-						Fluid fluid = null;
-						if (fluidContainer.getItem() instanceof ItemFluidInfo) {
-							fluid = ((ItemFluidInfo) fluidContainer.getItem()).getFluid(fluidContainer);
-						} else {
-							TechReborn.LOGGER.debug("Could not get Fluid from ItemStack " + fluidContainer.getItem());
-						}
-						if (!(fluid instanceof FlowingFluid)) {
-							return super.execute(pointer, stack);
-						} else {
-							ItemStack filledCell = TRContent.Cells.getCellByFluid(fluid).getStack();
-							if (stack.getCount() == 1) {
-								stack = filledCell;
-							} else {
-								stack.shrink(1);
-								if (pointer.blockEntity().insertItem(filledCell).getCount() < 0) {
-									this.dispense(pointer, filledCell);
-								}
-							}
-							return stack;
-						}
-					} else {
-						return super.execute(pointer, stack);
+	private static final class CellDispenseBehavior implements DispenseBehavior {
+		private static final CellDispenseBehavior INSTANCE = new CellDispenseBehavior();
+		private static final MapCodec<CellDispenseBehavior> CODEC = MapCodec.unit(INSTANCE);
+
+		@Override
+		public DispenseResult execute(BlockSource source, ItemStack stack) {
+			if (!(stack.getItem() instanceof CellItem cell)) {
+				return DispenseResult.failure();
+			}
+
+			BlockPos target = source.pos().relative(source.state().getValue(DispenserBlock.FACING));
+			if (cell.getCellFluid() != Fluids.EMPTY) {
+				if (cell.placeFluid(null, source.level(), target, null, stack)) {
+					return DispenseBehavior.consumeWithRemainder(source, stack, cell.getEmpty());
+				}
+				return DispenseResult.stoppingFailure();
+			}
+
+			BlockState state = source.level().getBlockState(target);
+			if (state.getBlock() instanceof BucketPickup pickup) {
+				ItemStack filledBucket = pickup.pickupBlock(null, source.level(), target, state);
+				if (filledBucket.getItem() instanceof ItemFluidInfo fluidInfo) {
+					Fluid fluid = fluidInfo.getFluid(filledBucket);
+					if (fluid instanceof FlowingFluid) {
+						ItemStack filledCell = TRContent.Cells.getCellByFluid(fluid).getStack();
+						return DispenseBehavior.consumeWithRemainder(source, stack, filledCell);
 					}
-				} else {
-					// drain cell
-					if (cell.placeFluid(null, pointer.level(), blockPos, null, stack)) {
-						ItemStack emptyCell = cell.getEmpty();
-						if (stack.getCount() == 1) {
-							stack = emptyCell;
-						} else {
-							stack.shrink(1);
-							if (pointer.blockEntity().insertItem(emptyCell).getCount() < 0) {
-								this.dispense(pointer, emptyCell);
-							}
-						}
-					}
-					return stack;
 				}
 			}
-		};
 
-		for (TRContent.Cells cell : TRContent.Cells.values()) {
-			DispenserBlock.registerBehavior(cell.asItem(), cellBehavior);
+			return DispenseResult.failure();
 		}
 
-		for (ModFluids fluid : ModFluids.values()) {
-			DispenserBlock.registerBehavior(fluid, new DefaultDispenseItemBehavior() {
-				public ItemStack execute(BlockSource pointer, ItemStack stack) {
-					RebornBucketItem bucket = (RebornBucketItem) stack.getItem();
-					BlockPos blockPos = pointer.pos().relative(pointer.state().getValue(DispenserBlock.FACING));
+		@Override
+		public MapCodec<CellDispenseBehavior> codec() {
+			return CODEC;
+		}
+	}
 
-					if (bucket.emptyContents(null, pointer.level(), blockPos, null)) {
-						ItemStack emptyBucket = new ItemStack(Items.BUCKET);
-						if (stack.getCount() == 1) {
-							stack = emptyBucket;
-						} else {
-							stack.shrink(1);
-							if (pointer.blockEntity().insertItem(emptyBucket).getCount() < 0) {
-								this.dispense(pointer, emptyBucket);
-							}
-						}
-					}
-					return stack;
-				}
-			});
+	private static final class ScrapBoxDispenseBehavior implements DispenseBehavior {
+		private static final ScrapBoxDispenseBehavior INSTANCE = new ScrapBoxDispenseBehavior();
+		private static final MapCodec<ScrapBoxDispenseBehavior> CODEC = MapCodec.unit(INSTANCE);
+
+		@Override
+		public DispenseResult execute(BlockSource source, ItemStack stack) {
+			List<ScrapBoxRecipe> recipes = RecipeUtils.getRecipes(source.level(), ModRecipes.SCRAPBOX);
+			if (recipes.isEmpty()) {
+				return DispenseResult.stoppingFailure();
+			}
+			int index = source.level().getRandom().nextInt(recipes.size());
+			ItemStack output = recipes.get(index).outputs().getFirst().create();
+			DropItemDispenseBehavior.spawnItem(source, output);
+			stack.shrink(1);
+			return DispenseResult.success(stack);
+		}
+
+		@Override
+		public MapCodec<ScrapBoxDispenseBehavior> codec() {
+			return CODEC;
 		}
 	}
 }

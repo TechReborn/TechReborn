@@ -39,7 +39,7 @@ import java.util.function.Predicate;
 
 public record RecipeClickAreaRenderable(GuiBase<?> guiBase, int x, int y) implements Renderable {
 	@Override
-	public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+	public void extractRenderState(GuiGraphicsExtractor guiGraphics) {
 		if(!guiBase.hideGuiElements()) {
 			GuiSprites.drawSpriteStretched(guiGraphics, GuiSprites.JEI_ICON, guiBase.getGuiLeft() + x, guiBase.getGuiTop() + y, 12, 12, 16, 16);
 		}
@@ -75,7 +75,8 @@ public record RecipeClickAreaRenderable(GuiBase<?> guiBase, int x, int y) implem
 		if(screen instanceof GuiBase<?> guiBase) {
 			for(Entry entry : ENTRIES) {
 				if(entry.predicate.test(guiBase)) {
-					guiBase.addRenderableOnly(new RecipeClickAreaRenderable(guiBase, entry.x, entry.y));
+					RecipeClickAreaRenderable renderable = new RecipeClickAreaRenderable(guiBase, entry.x, entry.y);
+					ScreenEvents.afterForeground(screen).register((currentScreen, graphics) -> renderable.extractRenderState(graphics));
 					return;
 				}
 			}

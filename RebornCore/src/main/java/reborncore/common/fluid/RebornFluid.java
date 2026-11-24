@@ -24,12 +24,11 @@
 
 package reborncore.common.fluid;
 
-import java.util.Optional;
 import java.util.function.Supplier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
@@ -39,28 +38,19 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 
-public abstract class RebornFluid extends FlowingFluid {
-
-	private final boolean still;
+public class RebornFluid extends FlowingFluid {
 
 	private final FluidSettings fluidSettings;
 	private final Supplier<RebornFluidBlock> fluidBlockSupplier;
-	private final Supplier<RebornBucketItem> bucketItemSuppler;
-	private final Supplier<RebornFluid> flowingSuppler;
-	private final Supplier<RebornFluid> stillSuppler;
 
-	public RebornFluid(boolean still, FluidSettings fluidSettings, Supplier<RebornFluidBlock> fluidBlockSupplier, Supplier<RebornBucketItem> bucketItemSuppler, Supplier<RebornFluid> flowingSuppler, Supplier<RebornFluid> stillSuppler) {
-		this.still = still;
+	public RebornFluid(FluidSettings fluidSettings, Supplier<RebornFluidBlock> fluidBlockSupplier, ResourceKey<Item> bucketId) {
+		super(Fluid.Properties.of().bucketItem(bucketId).soundEvent(SoundEvents.BUCKET_FILL).explosionResistance(100F));
 		this.fluidSettings = fluidSettings;
 		this.fluidBlockSupplier = fluidBlockSupplier;
-		this.bucketItemSuppler = bucketItemSuppler;
-		this.flowingSuppler = flowingSuppler;
-		this.stillSuppler = stillSuppler;
 	}
 
 	public FluidSettings getFluidSettings() {
@@ -68,23 +58,8 @@ public abstract class RebornFluid extends FlowingFluid {
 	}
 
 	@Override
-	public RebornFluid getFlowing() {
-		return flowingSuppler.get();
-	}
-
-	@Override
-	public RebornFluid getSource() {
-		return stillSuppler.get();
-	}
-
-	@Override
 	protected boolean canConvertToSource(ServerLevel world) {
 		return false;
-	}
-
-	@Override
-	public boolean isSource(FluidState fluidState) {
-		return still;
 	}
 
 	@Override
@@ -105,19 +80,9 @@ public abstract class RebornFluid extends FlowingFluid {
 	}
 
 	@Override
-	public Item getBucket() {
-		return bucketItemSuppler.get();
-	}
-
-	@Override
-	protected boolean canBeReplacedWith(FluidState fluidState, BlockGetter blockView, BlockPos blockPos, Fluid fluid, Direction direction) {
+	protected boolean canBeReplacedWith(FluidState fluidState, BlockGetter blockView, BlockPos blockPos, FluidState other, Direction direction) {
 		// Same as vanilla water
-		return direction == Direction.DOWN && !this.isSame(fluid);
-	}
-
-	@Override
-	public boolean isSame(Fluid fluid) {
-		return getFlowing() == fluid || getSource() == fluid;
+		return direction == Direction.DOWN && !other.is(this);
 	}
 
 	@Override
@@ -126,30 +91,7 @@ public abstract class RebornFluid extends FlowingFluid {
 	}
 
 	@Override
-	protected float getExplosionResistance() {
-		return 100F;
-	}
-
-	@Override
 	protected BlockState createLegacyBlock(FluidState fluidState) {
 		return fluidBlockSupplier.get().defaultBlockState().setValue(LiquidBlock.LEVEL, getLegacyLevel(fluidState));
 	}
-
-	@Override
-	public int getAmount(FluidState fluidState) {
-		return still ? 8 : fluidState.getValue(LEVEL);
-	}
-
-	@Override
-	protected void createFluidStateDefinition(StateDefinition.Builder<Fluid, FluidState> stateBuilder) {
-		super.createFluidStateDefinition(stateBuilder);
-		if (!still) {
-			stateBuilder.add(LEVEL);
-		}
-	}
-	@Override
-	public Optional<SoundEvent> getPickupSound() {
-		return Optional.of(SoundEvents.BUCKET_FILL);
-	}
-
 }

@@ -30,7 +30,6 @@ import java.util.List;
 import com.mojang.serialization.Codec;
 
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.Mth;
 
 import reborncore.common.config.Config;
 import reborncore.common.config.ConfigGroup;
@@ -40,7 +39,7 @@ import reborncore.common.config.RebornCoreConfigApi;
 // All moved into one class as it's a lot easier to find the config values when you know where they all are
 public final class TechRebornConfig {
 	private static final String MOD_ID = "techreborn";
-	private static final Codec<Float> CLAMPED_FLOAT_CODEC = Codec.FLOAT.xmap(value -> Mth.clamp(value, 0.0F, 1.0F), value -> value);
+	private static final Codec<Float> CLAMPED_FLOAT_CODEC = Codec.FLOAT.xmap(value -> Math.clamp(value, 0.0F, 1.0F), value -> value);
 	private static final Identifier GENERATORS_ID = Identifier.fromNamespaceAndPath(MOD_ID, "generators");
 	private static final Identifier ITEMS_ID = Identifier.fromNamespaceAndPath(MOD_ID, "items");
 	private static final Identifier MACHINES_ID = Identifier.fromNamespaceAndPath(MOD_ID, "machines");

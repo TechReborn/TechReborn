@@ -42,8 +42,8 @@ public class GuiAlloySmelter extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	public void extractBackground(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY, final float f) {
-		super.extractBackground(drawContext, mouseX, mouseY, f);
+	public void extractBackground(GuiGraphicsExtractor drawContext) {
+		super.extractBackground(drawContext);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		drawSlot(drawContext, 8, 72, layer);
@@ -54,8 +54,10 @@ public class GuiAlloySmelter extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void extractLabels(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY) {
-		super.extractLabels(drawContext, mouseX, mouseY);
+	protected void extractLabels(GuiGraphicsExtractor drawContext) {
+		int mouseX = drawContext.mouseX();
+		int mouseY = drawContext.mouseY();
+		super.extractLabels(drawContext);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
 		builder.drawProgressBar(drawContext, this, blockEntity.getProgressScaled(100), 100, 55, 51, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);

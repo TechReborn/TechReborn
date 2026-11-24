@@ -58,8 +58,8 @@ public class GuiPlayerDetector extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	public void extractBackground(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY, final float partialTicks) {
-		super.extractBackground(drawContext, mouseX, mouseY, partialTicks);
+	public void extractBackground(GuiGraphicsExtractor drawContext) {
+		super.extractBackground(drawContext);
 		final Layer layer = Layer.BACKGROUND;
 
 		if (hideGuiElements()) return;
@@ -69,8 +69,10 @@ public class GuiPlayerDetector extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void extractLabels(GuiGraphicsExtractor drawContext, final int mouseX, final int mouseY) {
-		super.extractLabels(drawContext, mouseX, mouseY);
+	protected void extractLabels(GuiGraphicsExtractor drawContext) {
+		int mouseX = drawContext.mouseX();
+		int mouseY = drawContext.mouseY();
+		super.extractLabels(drawContext);
 		final Layer layer = Layer.FOREGROUND;
 
 		builder.drawMultiEnergyBar(drawContext, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxStoredPower(), mouseX, mouseY, 0, layer);

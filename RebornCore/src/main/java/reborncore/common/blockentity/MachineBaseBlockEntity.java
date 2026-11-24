@@ -50,7 +50,7 @@ import java.util.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -261,7 +261,7 @@ public class MachineBaseBlockEntity extends BlockEntity implements BlockEntityTi
 	}
 
 	@Override
-	public CompoundTag getUpdateTag(HolderLookup.Provider registryLookup) {
+	public CompoundTag getUpdateTag(HolderGetter.Provider registryLookup) {
 		CompoundTag compound;
 		try (ProblemReporter.ScopedCollector logging = new ProblemReporter.ScopedCollector(problemPath(), LOGGER)) {
 			TagValueOutput view = TagValueOutput.createWithContext(logging, registryLookup);

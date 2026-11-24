@@ -58,6 +58,7 @@ public class TechReborn implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		TechRebornConfig.init();
+		TRDispenserBehavior.init();
 		TRContent.register();
 
 		// Done to force the class to load
@@ -80,7 +81,6 @@ public class TechReborn implements ModInitializer {
 		TRBlockEntities.THERMAL_GEN.toString();
 		//noinspection ResultOfMethodCallIgnored
 		GuiType.AESU.getIdentifier();
-		TRDispenserBehavior.init();
 		TRCauldronBehavior.init();
 		PoweredCraftingHandler.setup();
 		UseBlockHandler.init();

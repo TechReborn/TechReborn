@@ -61,12 +61,12 @@ public class DestructoPackScreenHandler extends AbstractContainerMenu {
 
 		for (i = 0; i < 3; ++i) {
 			for (int j = 0; j < 9; ++j) {
-				this.addSlot(new Slot(player.getInventory(), j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+				this.addSlot(new Slot(player.getInventory(), j + i * 9 + 9, 8 + j * 18, 84 + i * 18, Slot.Section.INVENTORY));
 			}
 		}
 
 		for (i = 0; i < 9; ++i) {
-			this.addSlot(new Slot(player.getInventory(), i, 8 + i * 18, 142));
+			this.addSlot(new Slot(player.getInventory(), i, 8 + i * 18, 142, Slot.Section.HOTBAR));
 		}
 	}
 }

@@ -29,7 +29,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.sounds.BlockSoundSets;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import techreborn.TechReborn;
@@ -37,7 +37,7 @@ import techreborn.TechReborn;
 public class TRBlockSettings {
 	private static BlockBehaviour.Properties metal(String name) {
 		return BlockBehaviour.Properties.of()
-			.sound(SoundType.METAL)
+			.sound(BlockSoundSets.METAL)
 			.mapColor(MapColor.METAL)
 			.strength(2f, 2f)
 			.setId(key(name));
@@ -57,7 +57,7 @@ public class TRBlockSettings {
 	public static BlockBehaviour.Properties reinforcedGlass(String name) {
 		return BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)
 			.strength(4f, 60f)
-			.sound(SoundType.STONE)
+			.sound(BlockSoundSets.STONE)
 			.setId(key(name));
 	}
 
@@ -65,7 +65,7 @@ public class TRBlockSettings {
 		var settings = BlockBehaviour.Properties.of()
 			.mapColor(MapColor.PODZOL)
 			.strength(hardness, resistance)
-			.sound(SoundType.WOOD)
+			.sound(BlockSoundSets.WOOD)
 			.setId(key(name));
 
 		if (noCollision) {
@@ -160,7 +160,7 @@ public class TRBlockSettings {
 		BlockBehaviour.Properties settings = BlockBehaviour.Properties.of()
 			.strength(hardness, resistance)
 			.mapColor(MapColor.METAL) // TODO 1.20 maybe set the color based off the block?
-			.sound(SoundType.METAL)
+			.sound(BlockSoundSets.METAL)
 			.setId(key(name));
 
 		if (isHot) {
@@ -174,7 +174,7 @@ public class TRBlockSettings {
 	public static BlockBehaviour.Properties ore(boolean deepslate, String name) {
 		return BlockBehaviour.Properties.of()
 			.requiresCorrectToolForDrops()
-			.sound(deepslate ? SoundType.DEEPSLATE : SoundType.STONE)
+			.sound(deepslate ? BlockSoundSets.DEEPSLATE : BlockSoundSets.STONE)
 			.destroyTime(deepslate ? 4.5f : 3f)
 			.explosionResistance(3f)
 			.setId(key(name));
@@ -205,7 +205,7 @@ public class TRBlockSettings {
 		}
 
 		return BlockBehaviour.Properties.of()
-			.sound(SoundType.WOOD)
+			.sound(BlockSoundSets.WOOD)
 			.mapColor(MapColor.WOOD)
 			.strength(2f, 2f)
 			.setId(key(name));
@@ -259,7 +259,7 @@ public class TRBlockSettings {
 	public static BlockBehaviour.Properties resinBasin(String name) {
 		return BlockBehaviour.Properties.of()
 			.mapColor(MapColor.WOOD)
-			.sound(SoundType.WOOD)
+			.sound(BlockSoundSets.WOOD)
 			.strength(2F, 2F)
 			.setId(key(name));
 	}

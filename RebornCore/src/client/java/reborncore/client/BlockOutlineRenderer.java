@@ -29,7 +29,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.FabricRenderState;
 import net.fabricmc.fabric.api.client.rendering.v1.RenderStateDataKey;
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelExtractionContext;
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelExtractionEvents;
-import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderContext;
+import net.fabricmc.fabric.api.client.rendering.v1.level.LevelSubmitContext;
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -56,7 +56,7 @@ public class BlockOutlineRenderer implements LevelRenderEvents.BeforeBlockOutlin
 	private static final RenderStateDataKey<List<VoxelShape>> KEY = RenderStateDataKey.create(() -> "MultiBlockBreakingTool");
 
 	@Override
-	public boolean beforeBlockOutline(LevelRenderContext context, BlockOutlineRenderState outlineRenderState) {
+	public boolean beforeBlockOutline(LevelSubmitContext context, BlockOutlineRenderState outlineRenderState) {
 		List<VoxelShape> shapes = ((FabricRenderState) outlineRenderState).getData(KEY);
 		if (shapes != null) {
 			VoxelShape shape = outlineRenderState.shape();

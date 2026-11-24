@@ -178,7 +178,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	private boolean tryHarvestBlock(BlockState blockState, BlockPos blockPos) {
-		if (insertIntoInv(Block.getDrops(blockState, (ServerLevel) level, blockPos, null))) {
+		if (insertIntoInv(Block.getDrops(blockState, (ServerLevel) level, blockPos, null, null, ItemStack.EMPTY))) {
 			useEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest.get());
 			return true;
 		}

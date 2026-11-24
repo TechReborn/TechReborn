@@ -45,7 +45,7 @@ public class TRItemSettings {
 		Identifier.fromNamespaceAndPath(TechReborn.MOD_ID, "compostable/very_low")
 	);
 	public static TooltipDisplay UNBREAKABLE_HIDE = new TooltipDisplay(
-		false, new LinkedHashSet<>(Set.of(DataComponents.UNBREAKABLE))
+		true, false, new LinkedHashSet<>(Set.of(DataComponents.UNBREAKABLE))
 	);
 
 	public static Item.Properties item(String name) {

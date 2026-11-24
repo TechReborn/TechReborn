@@ -24,7 +24,6 @@
 
 package reborncore.common.config.impl.serialization;
 
-import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
 import net.minecraft.nbt.NbtOps;
@@ -38,7 +37,7 @@ public class ConfigParser {
 	public static void loadInto(String content, ConfigGroupImpl config) {
 		try {
 			String snbt = content.replaceAll(COMMENT_PATTERN, "");
-			var nbt = TagParser.create(NbtOps.INSTANCE).parseFully(new StringReader(snbt));
+			var nbt = TagParser.create(NbtOps.INSTANCE).parseFully(snbt);
 			config.codec().decode(NbtOps.INSTANCE, nbt).getOrThrow();
 		} catch (CommandSyntaxException e) {
 			throw new RuntimeException(e);

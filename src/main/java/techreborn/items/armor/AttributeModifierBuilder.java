@@ -51,7 +51,7 @@ import static techreborn.TechReborn.MOD_ID;
 
 public class AttributeModifierBuilder {
 	public static final TooltipDisplay ATTRIBUTE_HIDE = new TooltipDisplay(
-		false,
+		true, false,
 		new LinkedHashSet<>(Set.of(DataComponents.UNBREAKABLE, DataComponents.ATTRIBUTE_MODIFIERS))
 	);
 	private final ItemAttributeModifiers.Builder builder;

@@ -44,7 +44,7 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.gui.GuiPipeline;
 import net.minecraft.client.renderer.block.FluidModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -200,10 +200,10 @@ public class ReiPlugin implements REIClientPlugin {
 			}
 
 			switch (direction) {
-				case RIGHT -> drawContext.blit(RenderPipelines.GUI_TEXTURED, GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, j, 10, 256, 256);
-				case LEFT -> drawContext.blit(RenderPipelines.GUI_TEXTURED, GuiBuilder.GUI_ELEMENTS, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10, 256, 256);
-				case UP -> drawContext.blit(RenderPipelines.GUI_TEXTURED, GuiBuilder.GUI_ELEMENTS, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j, 256, 256);
-				case DOWN -> drawContext.blit(RenderPipelines.GUI_TEXTURED, GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, 10, j, 256, 256);
+				case RIGHT -> drawContext.blit(GuiPipeline.TEXTURED, GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, j, 10, 256, 256);
+				case LEFT -> drawContext.blit(GuiPipeline.TEXTURED, GuiBuilder.GUI_ELEMENTS, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10, 256, 256);
+				case UP -> drawContext.blit(GuiPipeline.TEXTURED, GuiBuilder.GUI_ELEMENTS, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j, 256, 256);
+				case DOWN -> drawContext.blit(GuiPipeline.TEXTURED, GuiBuilder.GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, 10, j, 256, 256);
 			}
 		});
 	}
@@ -271,12 +271,12 @@ public class ReiPlugin implements REIClientPlugin {
 				int count = drawHeight / width;
 				int remainder = drawHeight % width;
 				for (int i = 0; i < count; i++) {
-					drawContext.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, x, y, width, width, shaderColor);
+					drawContext.blitSprite(GuiPipeline.TEXTURED, sprite, x, y, width, width, shaderColor);
 					y += width;
 				}
 				if (remainder != 0) {
 					drawContext.enableScissor(x, y, x + width, y + remainder);
-					drawContext.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, x, y, width, width, shaderColor);
+					drawContext.blitSprite(GuiPipeline.TEXTURED, sprite, x, y, width, width, shaderColor);
 					drawContext.disableScissor();
 				}
 			}

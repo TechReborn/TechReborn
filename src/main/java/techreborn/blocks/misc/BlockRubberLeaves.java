@@ -25,26 +25,27 @@
 package techreborn.blocks.misc;
 
 
-import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.FireBlock;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FallingParticlesLeavesBlock;
-import net.minecraft.world.level.block.sounds.AmbientLeavesBlockSoundPlayer;
+import java.util.Optional;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import techreborn.init.TRBlockSettings;
 
 public class BlockRubberLeaves extends FallingParticlesLeavesBlock {
 	public BlockRubberLeaves(String name) {
-		super(0.01F, AmbientLeavesBlockSoundPlayer.noAmbientSound(), TRBlockSettings.rubberLeaves(name));
-		FlammableBlockRegistry.getDefaultInstance().add(this, 30, 60);
+		super(0.01F, Optional.empty(), TRBlockSettings.rubberLeaves(name));
+		((FireBlock) Blocks.FIRE).setFlammable(this, 30, 60);
 	}
 
 	public BlockRubberLeaves(BlockBehaviour.Properties settings) {
-		super(0.01F, AmbientLeavesBlockSoundPlayer.noAmbientSound(), settings);
+		super(0.01F, Optional.empty(), settings);
 	}
 
 	@Override

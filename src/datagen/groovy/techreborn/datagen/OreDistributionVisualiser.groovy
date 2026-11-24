@@ -25,13 +25,8 @@
 package techreborn.datagen
 
 import net.minecraft.SharedConstants
-import net.minecraft.core.registries.Registries
-import net.minecraft.data.registries.VanillaRegistries
-import net.minecraft.world.level.biome.Biomes
 import net.minecraft.server.Bootstrap
-import net.minecraft.world.level.EmptyBlockGetter
-import net.minecraft.world.level.levelgen.DebugLevelSource
-import net.minecraft.world.level.levelgen.WorldGenerationContext
+import net.minecraft.world.level.levelgen.VerticalAnchor
 import techreborn.world.OreDistribution
 import techreborn.world.TargetDimension
 
@@ -63,7 +58,7 @@ class OreDistributionVisualiser {
 	}
 
 	static void generateOreDistributionVisualization() throws IOException {
-		def heightContext = new FixedHeightContext(-64, 360)
+		def heightContext = new VerticalAnchor.Context(-64, 360, 63)
 
 		BufferedImage bi = new BufferedImage(450, 220, BufferedImage.TYPE_INT_ARGB)
 		Graphics2D png = bi.createGraphics()
@@ -72,18 +67,18 @@ class OreDistributionVisualiser {
 
 		png.setPaint(Color.black)
 		// Draw 0
-		png.drawLine(0, -heightContext.minY, (overworldOres().size() * 10) + 20, -heightContext.minY)
+		png.drawLine(0, -heightContext.minY(), (overworldOres().size() * 10) + 20, -heightContext.minY())
 
 		png.setPaint(Color.blue)
 		// Draw ground
-		png.drawLine(0, -heightContext.minY + 64, (overworldOres().size() * 10) + 20, -heightContext.minY + 64)
+		png.drawLine(0, -heightContext.minY() + 64, (overworldOres().size() * 10) + 20, -heightContext.minY() + 64)
 
 		int c = 1
 		for (OreDistribution value : overworldOres()) {
 			png.setPaint(colors[c])
 
-			def yMin = value.minOffset.resolveY(heightContext) + -heightContext.minY
-			def yMax = -heightContext.minY + value.maxY
+			def yMin = value.minOffset.resolveY(heightContext) + -heightContext.minY()
+			def yMax = -heightContext.minY() + value.maxY
 
 			png.fill3DRect(c * 10, yMin, 10, yMax - yMin, true)
 
@@ -99,27 +94,5 @@ class OreDistributionVisualiser {
 		return Arrays.stream(OreDistribution.values())
 				.filter(ore -> ore.dimension == TargetDimension.OVERWORLD)
 				.toList()
-	}
-
-	private static class FixedHeightContext extends WorldGenerationContext {
-		final int minY
-		final int height
-
-		FixedHeightContext(int minY, int height) {
-			super(new DebugLevelSource(VanillaRegistries.createWorldLookup().lookupOrThrow(Registries.BIOME).getOrThrow(Biomes.PLAINS)), EmptyBlockGetter.INSTANCE)
-
-			this.minY = minY
-			this.height = height
-		}
-
-		@Override
-		int getMinGenY() {
-			return minY
-		}
-
-		@Override
-		int getGenDepth() {
-			return height
-		}
 	}
 }

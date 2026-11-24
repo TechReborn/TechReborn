@@ -25,7 +25,6 @@
 package reborncore.client.gui;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.resources.model.sprite.SpriteId;
@@ -42,10 +41,9 @@ import java.util.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.gui.components.inventory.SlotWidget;
+import net.minecraft.client.gui.GuiPipeline;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
@@ -137,8 +135,8 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 	}
 
 	@Override
-	public void extractBackground(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float lastFrameDuration) {
-		drawContext.blit(RenderPipelines.GUI_TEXTURED, INVENTORY_LOCATION, leftPos, topPos, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
+	public void extractBackground(GuiGraphicsExtractor drawContext) {
+		drawContext.blit(GuiPipeline.TEXTURED, INVENTORY_LOCATION, leftPos, topPos, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
 		boolean drawPlayerSlots = selectedTab == null && drawPlayerSlots();
 		updateSlotDraw(drawPlayerSlots);
 		builder.drawDefaultBackground(drawContext, leftPos, topPos, xSize, ySize);
@@ -160,7 +158,7 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 		}
 
 		final GuiBase<T> gui = this;
-		getTab().ifPresent(guiTab -> builder.drawSlotConfigTips(drawContext, gui, leftPos + imageWidth / 2, topPos + 93, mouseX, mouseY, guiTab));
+		getTab().ifPresent(guiTab -> builder.drawSlotConfigTips(drawContext, gui, leftPos + imageWidth / 2, topPos + 93, guiTab));
 
 	}
 
@@ -184,13 +182,15 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 	}
 
 	@Override
-	protected void extractLabels(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+	protected void extractLabels(GuiGraphicsExtractor drawContext) {
 		drawTitle(drawContext);
 	}
 
 	@Override
-	public void extractRenderState(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float partialTicks) {
-		super.extractRenderState(drawContext, mouseX, mouseY, partialTicks);
+	public void extractRenderState(GuiGraphicsExtractor drawContext) {
+		super.extractRenderState(drawContext);
+		int mouseX = drawContext.mouseX();
+		int mouseY = drawContext.mouseY();
 		this.extractTooltip(drawContext, mouseX, mouseY);
 
 		drawContext.pose().pushMatrix();
@@ -199,10 +199,10 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 		drawContext.pose().popMatrix();
 	}
 
-	@Override
-	protected void extractTooltip(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+	private void extractTooltip(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+		SlotWidget hoveredSlot = getHoveredSlot();
 		if (isHovering(-25, 6, 24, 80, mouseX, mouseY) && upgrades
-				&& this.hoveredSlot != null && !this.hoveredSlot.hasItem()) {
+				&& hoveredSlot != null && !hoveredSlot.slot().hasItem()) {
 			List<Component> list = new ArrayList<>();
 			list.add(Component.translatable("reborncore.gui.tooltip.upgrades"));
 			drawContext.setComponentTooltipForNextFrame(Minecraft.getInstance().font, list, mouseX, mouseY);
@@ -214,18 +214,6 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 			}
 			offset += 24;
 		}
-
-		for (NarratableEntry selectable : narratables) {
-			if (selectable instanceof AbstractWidget clickable) {
-				if (clickable.isHovered()) {
-					// TODO 1.19.3
-					// clickable.renderTooltip(matrixStack, mouseX, mouseY);
-					break;
-				}
-			}
-
-		}
-		super.extractTooltip(drawContext, mouseX, mouseY);
 	}
 
 	protected void drawTitle(GuiGraphicsExtractor drawContext) {
@@ -393,9 +381,9 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 	}
 
 	@Override
-	protected boolean hasClickedOutside(double mouseX, double mouseY, int left, int top) {
+	protected boolean hasClickedOutside(double mouseX, double mouseY) {
 		// Upgrades are normally outside the bounds, so let's pretend we are within the bounds if there is a slot here.
-		return getHoveredSlot(mouseX, mouseY) == null && super.hasClickedOutside(mouseX, mouseY, left, top);
+		return getHoveredSlot() == null && super.hasClickedOutside(mouseX, mouseY);
 	}
 
 	public List<GuiTab> getTabs() {
@@ -404,10 +392,5 @@ public class GuiBase<T extends AbstractContainerMenu> extends AbstractContainerS
 
 	public static TextureAtlasSprite getSprite(SpriteId spriteIdentifier) {
 		return Minecraft.getInstance().getAtlasManager().getAtlasOrThrow(spriteIdentifier.atlasLocation()).getSprite(spriteIdentifier.texture());
-	}
-
-	@Override
-	public <T extends Renderable> T addRenderableOnly(T renderable) {
-		return super.addRenderableOnly(renderable);
 	}
 }

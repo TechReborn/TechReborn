@@ -60,7 +60,6 @@ public class WorldGenerator {
 	public static final TreeDecoratorType<RubberTreeSpikeDecorator> RUBBER_TREE_SPIKE = Registry.register(BuiltInRegistries.TREE_DECORATOR_TYPE, Identifier.fromNamespaceAndPath("techreborn", "rubber_tree_spike"), new TreeDecoratorType<>(RubberTreeSpikeDecorator.CODEC));
 
 	public static final TreeGrower RUBBER_TREE_SAPLING_GENERATOR = new TreeGrower(
-		Identifier.fromNamespaceAndPath("techreborn", "rubber_tree").toString(),
 		WeightedList.of(RUBBER_TREE_FEATURE),
 		WeightedList.of(),
 		WeightedList.of(),

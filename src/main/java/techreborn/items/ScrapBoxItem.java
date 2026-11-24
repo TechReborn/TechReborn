@@ -28,6 +28,7 @@ import reborncore.common.crafting.RecipeUtils;
 import reborncore.common.util.WorldUtils;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
+import techreborn.init.TRDispenserBehavior;
 import techreborn.init.TRItemSettings;
 import techreborn.recipe.recipes.ScrapBoxRecipe;
 
@@ -42,7 +43,7 @@ import net.minecraft.world.level.Level;
 public class ScrapBoxItem extends Item {
 
 	public ScrapBoxItem(String name) {
-		super(TRItemSettings.item(name));
+		super(TRDispenserBehavior.scrapBox(TRItemSettings.item(name)));
 	}
 
 	@Override

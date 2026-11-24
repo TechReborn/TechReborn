@@ -25,6 +25,7 @@
 package reborncore.common.screen.slot;
 
 import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 
 /**
@@ -35,7 +36,7 @@ public class PlayerInventorySlot extends Slot {
 	public boolean doDraw;
 
 	public PlayerInventorySlot(Container inventory, int index, int xPosition, int yPosition) {
-		super(inventory, index, xPosition, yPosition);
+		super(inventory, index, xPosition, yPosition, Inventory.isHotbarSlot(index) ? Section.HOTBAR : Section.INVENTORY);
 		this.doDraw = true;
 	}
 

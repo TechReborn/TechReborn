@@ -28,7 +28,7 @@ import net.fabricmc.fabric.api.lookup.v1.block.BlockApiCache;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -219,7 +219,7 @@ public class CableBlockEntity extends BlockEntity
 
 	// BlockEntity
 	@Override
-	public CompoundTag getUpdateTag(HolderLookup.Provider registryLookup) {
+	public CompoundTag getUpdateTag(HolderGetter.Provider registryLookup) {
 		return saveWithoutMetadata(registryLookup);
 	}
 

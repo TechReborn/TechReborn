@@ -52,7 +52,7 @@ public record HologramRenderer(BlockModelResolver blockModelResolver, ItemModelR
 		if (state.getBlock() instanceof LiquidBlock) {
 			FluidState fluidState = state.getFluidState();
 			ItemStackRenderState item = renderState.nextItemStackRenderState();
-			itemModelResolver.updateForTopItem(item, new ItemStack(fluidState.getType().getBucket()), ItemDisplayContext.FIXED, view, null, 0);
+			itemModelResolver.updateForTopItem(item, new ItemStack(view.registryAccess().getOrThrow(fluidState.getType().getBucket())), ItemDisplayContext.FIXED, view, null, 0);
 			renderState.states.add(new HologramRenderState.FluidItem(x, y, z, item));
 		} else {
 			var blockModelRenderState = renderState.nextBlockModelRenderState();

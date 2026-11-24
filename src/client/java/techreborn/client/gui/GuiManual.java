@@ -29,7 +29,7 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.gui.GuiPipeline;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import reborncore.client.gui.Theme;
@@ -87,16 +87,16 @@ public class GuiManual extends Screen {
 	}
 
 	@Override
-	public void extractBackground(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float delta) {
-		super.extractBackground(drawContext, mouseX, mouseY, delta);
+	public void extractBackground(GuiGraphicsExtractor drawContext) {
+		super.extractBackground(drawContext);
 		int centerX = (width / 2) - guiWidth / 2;
 		int centerY = (height / 2) - guiHeight / 2;
-		drawContext.blit(RenderPipelines.GUI_TEXTURED, MANUAL_TEXTURE, centerX, centerY, 0, 0, guiWidth, guiHeight, 256, 256);
+		drawContext.blit(GuiPipeline.TEXTURED, MANUAL_TEXTURE, centerX, centerY, 0, 0, guiWidth, guiHeight, 256, 256);
 	}
 
 	@Override
-	public void extractRenderState(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float partialTicks) {
-		super.extractRenderState(drawContext, mouseX, mouseY, partialTicks);
+	public void extractRenderState(GuiGraphicsExtractor drawContext) {
+		super.extractRenderState(drawContext);
 
 		int centerY = (height / 2) - guiHeight / 2;
 

@@ -63,6 +63,7 @@ import org.jspecify.annotations.Nullable;
 import reborncore.common.fluid.FluidUtils;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import techreborn.init.TRContent;
+import techreborn.init.TRDispenserBehavior;
 import techreborn.init.TRItemSettings;
 
 public class CellItem extends Item implements ItemFluidInfo {
@@ -70,7 +71,7 @@ public class CellItem extends Item implements ItemFluidInfo {
 	private final Fluid fluid;
 
 	public CellItem(String name, Fluid fluid) {
-		super(TRItemSettings.item(name).stacksTo(16));
+		super(TRDispenserBehavior.cell(TRItemSettings.item(name).stacksTo(16)));
 		this.fluid = fluid;
 	}
 
@@ -84,7 +85,7 @@ public class CellItem extends Item implements ItemFluidInfo {
 
 	@SuppressWarnings("deprecation")
 	private void playEmptyingSound(@Nullable Player playerEntity, LevelAccessor world, BlockPos blockPos, Fluid fluid) {
-		SoundEvent soundEvent = fluid.is(FluidTags.LAVA) ? SoundEvents.BUCKET_EMPTY_LAVA : SoundEvents.BUCKET_EMPTY;
+		SoundEvent soundEvent = fluid.builtInRegistryHolder().is(FluidTags.LAVA) ? SoundEvents.BUCKET_EMPTY_LAVA : SoundEvents.BUCKET_EMPTY;
 		world.playSound(playerEntity, blockPos, soundEvent, SoundSource.BLOCKS, 1.0F, 1.0F);
 	}
 
@@ -102,11 +103,11 @@ public class CellItem extends Item implements ItemFluidInfo {
 		BlockState blockState = world.getBlockState(pos);
 		boolean canPlace = blockState.canBeReplaced(fluid);
 
-		if (!blockState.isAir() && !canPlace && (!(blockState.getBlock() instanceof LiquidBlockContainer) || !((LiquidBlockContainer) blockState.getBlock()).canPlaceLiquid(player, world, pos, blockState, fluid))) {
+		if (!blockState.isAir() && !canPlace && (!(blockState.getBlock() instanceof LiquidBlockContainer) || !((LiquidBlockContainer) blockState.getBlock()).canPlaceLiquid(player, world, pos, blockState, fluid.defaultFluidState()))) {
 			return hitResult != null && this.placeFluid(player, world, hitResult.getBlockPos().relative(hitResult.getDirection()), null, filledCell);
 		} else {
 			@SuppressWarnings("deprecation")
-			boolean evaporates = world.environmentAttributes().getValue(EnvironmentAttributes.WATER_EVAPORATES, pos) && fluid.is(FluidTags.WATER);
+			boolean evaporates = world.environmentAttributes().getValue(EnvironmentAttributes.WATER_EVAPORATES, pos) && fluid.builtInRegistryHolder().is(FluidTags.WATER);
 			if (evaporates) {
 				int i = pos.getX();
 				int j = pos.getY();
@@ -117,7 +118,7 @@ public class CellItem extends Item implements ItemFluidInfo {
 					world.addParticle(ParticleTypes.LARGE_SMOKE, (double) i + Math.random(), (double) j + Math.random(), (double) k + Math.random(), 0.0D, 0.0D, 0.0D);
 				}
 			} else if (blockState.getBlock() instanceof LiquidBlockContainer && fluid == Fluids.WATER) {
-				if (((LiquidBlockContainer) blockState.getBlock()).placeLiquid(world, pos, blockState, ((FlowingFluid) fluid).getSource(false))) {
+				if (((LiquidBlockContainer) blockState.getBlock()).placeLiquid(world, pos, blockState, fluid.defaultFluidState())) {
 					this.playEmptyingSound(player, world, pos, fluid);
 				}
 			} else {

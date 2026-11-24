@@ -37,11 +37,11 @@ public class BaseSlot extends Slot {
 	private Predicate<ItemStack> filter = (stack) -> true;
 
 	public BaseSlot(Container inventoryIn, int index, int xPosition, int yPosition) {
-		super(inventoryIn, index, xPosition, yPosition);
+		super(inventoryIn, index, xPosition, yPosition, Section.CONTAINER);
 	}
 
 	public BaseSlot(Container inventoryIn, int index, int xPosition, int yPosition, Predicate<ItemStack> filter) {
-		super(inventoryIn, index, xPosition, yPosition);
+		super(inventoryIn, index, xPosition, yPosition, Section.CONTAINER);
 		this.filter = filter;
 	}
 

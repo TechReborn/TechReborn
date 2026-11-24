@@ -32,7 +32,7 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractSelectionList;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.gui.GuiPipeline;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.network.chat.Component;
@@ -66,7 +66,7 @@ public class GuiBuilder {
 	}
 
 	public void drawDefaultBackground(GuiGraphicsExtractor drawContext, int x, int y, int width, int height) {
-		drawContext.blitSprite(RenderPipelines.GUI_TEXTURED, GuiSprites.BACKGROUND.texture(), x, y, width, height);
+		drawContext.blitSprite(GuiPipeline.TEXTURED, GuiSprites.BACKGROUND.texture(), x, y, width, height);
 	}
 
 	public void drawPlayerSlots(GuiGraphicsExtractor drawContext, Screen gui, int posX, int posY, boolean center) {
@@ -94,10 +94,10 @@ public class GuiBuilder {
 	}
 
 	public void drawProgressBar(GuiGraphicsExtractor drawContext, RenderTarget gui, double progress, int x, int y) {
-		drawContext.blit(RenderPipelines.GUI_TEXTURED, GUI_ELEMENTS, x, y, 150, 18, 22, 15, 256, 256);
+		drawContext.blit(GuiPipeline.TEXTURED, GUI_ELEMENTS, x, y, 150, 18, 22, 15, 256, 256);
 		int j = (int) (progress);
 		if (j > 0) {
-			drawContext.blit(RenderPipelines.GUI_TEXTURED, GUI_ELEMENTS, x, y, 150, 34, j + 1, 15, 256, 256);
+			drawContext.blit(GuiPipeline.TEXTURED, GUI_ELEMENTS, x, y, 150, 34, j + 1, 15, 256, 256);
 		}
 	}
 
@@ -181,13 +181,13 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		drawContext.blit(RenderPipelines.GUI_TEXTURED, GUI_ELEMENTS, x, y, 26, 218, 114, 18, 256, 256);
+		drawContext.blit(GuiPipeline.TEXTURED, GUI_ELEMENTS, x, y, 26, 218, 114, 18, 256, 256);
 		if (value != 0) {
 			int j = (int) ((double) value / (double) max * 106);
 			if (j < 0) {
 				j = 0;
 			}
-			drawContext.blit(RenderPipelines.GUI_TEXTURED, GUI_ELEMENTS, x + 4, y + 4, 26, 246, j, 10, 256, 256);
+			drawContext.blit(GuiPipeline.TEXTURED, GUI_ELEMENTS, x + 4, y + 4, 26, 246, j, 10, 256, 256);
 
 			Component text = Component.literal(String.valueOf(value))
 					.append(Component.translatable("reborncore.gui.heat"));
@@ -221,7 +221,7 @@ public class GuiBuilder {
 		if (j < 0) {
 			j = 0;
 		}
-		drawContext.blit(RenderPipelines.GUI_TEXTURED, GUI_ELEMENTS, x + 4, y + 4, 0, 236, j, 10, 256, 256);
+		drawContext.blit(GuiPipeline.TEXTURED, GUI_ELEMENTS, x + 4, y + 4, 0, 236, j, 10, 256, 256);
 		if (!suffix.equals("")) {
 			suffix = " " + suffix;
 		}
@@ -335,10 +335,8 @@ public class GuiBuilder {
 	 * @param gui    {@link GuiBase} The GUI to draw on
 	 * @param x      {@code int} Top left corner where to place tips list
 	 * @param y      {@code int} Top left corner where to place tips list
-	 * @param mouseX {@code int} Mouse cursor position
-	 * @param mouseY {@code int} Mouse cursor position
 	 */
-	public void drawSlotConfigTips(GuiGraphicsExtractor drawContext, GuiBase<?> gui, int x, int y, int mouseX, int mouseY, GuiTab guiTab) {
+	public void drawSlotConfigTips(GuiGraphicsExtractor drawContext, GuiBase<?> gui, int x, int y, GuiTab guiTab) {
 		List<Component> tips = guiTab.getTips().stream()
 				.map(Component::translatable)
 				.collect(Collectors.toList());
@@ -346,7 +344,7 @@ public class GuiBuilder {
 		TipsListWidget explanation = new TipsListWidget(gui, gui.getScreenWidth() - 14, 76, y, 9 + 2, tips);
 		explanation.setX(x - 81);
 		explanation.setScrollAmount(0);
-		explanation.extractRenderState(drawContext, mouseX, mouseY, 1.0f);
+		explanation.extractRenderState(drawContext);
 	}
 
 	private static class TipsListWidget extends AbstractSelectionList<TipsListWidget.TipsListEntry> {
@@ -366,9 +364,9 @@ public class GuiBuilder {
 		}
 
 		@Override
-		public void extractListItems(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float delta) {
+		public void extractListItems(GuiGraphicsExtractor drawContext) {
 			drawContext.fill(this.getX(), this.getY(), this.getX() + this.getWidth(), this.getY() + this.getHeight(), 0xff202020);
-			super.extractListItems(drawContext, mouseX, mouseY, delta);
+			super.extractListItems(drawContext);
 		}
 
 		@Override
@@ -383,7 +381,7 @@ public class GuiBuilder {
 			}
 
 			@Override
-			public void extractContent(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, boolean hovered, float deltaTicks) {
+			public void extractContent(GuiGraphicsExtractor drawContext, boolean hovered) {
 				drawContext.textWithWordWrap(Minecraft.getInstance().font, tip, getContentX(), getContentY(), getWidth(), theme.subtitleColor().rgba());
 			}
 		}
@@ -413,7 +411,7 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		drawContext.blit(RenderPipelines.GUI_TEXTURED, GUI_ELEMENTS, x, y, 150, 91, 16, 16, 256, 256);
+		drawContext.blit(GuiPipeline.TEXTURED, GUI_ELEMENTS, x, y, 150, 91, 16, 16, 256, 256);
 	}
 
 	/**
@@ -449,10 +447,10 @@ public class GuiBuilder {
 			}
 		} else {
 			switch (direction) {
-				case RIGHT -> drawContext.blit(RenderPipelines.GUI_TEXTURED, GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, j, 10, 256, 256);
-				case LEFT -> drawContext.blit(RenderPipelines.GUI_TEXTURED, GUI_ELEMENTS, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10, 256, 256);
-				case UP -> drawContext.blit(RenderPipelines.GUI_TEXTURED, GUI_ELEMENTS, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j, 256, 256);
-				case DOWN -> drawContext.blit(RenderPipelines.GUI_TEXTURED, GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, 10, j, 256, 256);
+				case RIGHT -> drawContext.blit(GuiPipeline.TEXTURED, GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, j, 10, 256, 256);
+				case LEFT -> drawContext.blit(GuiPipeline.TEXTURED, GUI_ELEMENTS, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10, 256, 256);
+				case UP -> drawContext.blit(GuiPipeline.TEXTURED, GUI_ELEMENTS, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j, 256, 256);
+				case DOWN -> drawContext.blit(GuiPipeline.TEXTURED, GUI_ELEMENTS, x, y, direction.xActive, direction.yActive, 10, j, 256, 256);
 			}
 		}
 
@@ -632,12 +630,12 @@ public class GuiBuilder {
 		int count = drawHeight / width;
 		int remainder = drawHeight % width;
 		for (int i = 0; i < count; i++) {
-			drawContext.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, x, y, width, width, color);
+			drawContext.blitSprite(GuiPipeline.TEXTURED, sprite, x, y, width, width, color);
 			y += width;
 		}
 		if (remainder != 0) {
 			drawContext.enableScissor(x, y, x + width, y + remainder);
-			drawContext.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, x, y, width, width, color);
+			drawContext.blitSprite(GuiPipeline.TEXTURED, sprite, x, y, width, width, color);
 			drawContext.disableScissor();
 		}
 	}
@@ -660,10 +658,10 @@ public class GuiBuilder {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
 		}
-		drawContext.blit(RenderPipelines.GUI_TEXTURED, GUI_ELEMENTS, x, y, 150, 64, 13, 13, 256, 256);
+		drawContext.blit(GuiPipeline.TEXTURED, GUI_ELEMENTS, x, y, 150, 64, 13, 13, 256, 256);
 		int j = 13 - (int) ((double) progress / (double) maxProgress * 13);
 		if (j > 0) {
-			drawContext.blit(RenderPipelines.GUI_TEXTURED, GUI_ELEMENTS, x, y + j, 150, 51 + j, 13, 13 - j, 256, 256);
+			drawContext.blit(GuiPipeline.TEXTURED, GUI_ELEMENTS, x, y + j, 150, 51 + j, 13, 13 - j, 256, 256);
 
 		}
 		if (gui.isPointInRect(x, y, 12, 12, mouseX, mouseY)) {
