@@ -772,7 +772,7 @@
   "_comment20": "Doodberichten",
   "death.attack.electric_shock": "%s Is geëlektrocuteerd",
   "_comment21": "Entiteiten",
-  "entity.nuke": "Kernbom",
+  "entity.techreborn.nuke": "Kernbom",
   "_comment22": "Knopinfo",
   "techreborn.tooltip.transferRate": "Overdracht snelheid",
   "techreborn.tooltip.tier": "Niveau",

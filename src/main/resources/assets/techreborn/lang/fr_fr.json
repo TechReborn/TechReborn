@@ -561,7 +561,7 @@
   "techreborn.jei.category.generator.plasma": "Générateur à Plasma",
   "_comment20": "Messages de Mort",
   "_comment21": "Entités",
-  "entity.nuke": "Bombe Atomique",
+  "entity.techreborn.nuke": "Bombe Atomique",
   "_comment22": "Aide Contextuelle",
   "techreborn.tooltip.transferRate": "Taux de Transfert",
   "techreborn.tooltip.tier": "Échelon",

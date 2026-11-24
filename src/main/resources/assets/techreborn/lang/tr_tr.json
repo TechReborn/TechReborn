@@ -852,7 +852,7 @@
   "death.attack.fusion": "%s akut radyasyon hastalığına yakalandı",
   "death.attack.fusion.player": "%s, %s adlı oyuncudan kaçmaya çalışırken akut radyasyon hastalığına yakalandı",
   "_comment21": "Varlıklar",
-  "entity.nuke": "Atom Bombası",
+  "entity.techreborn.nuke": "Atom Bombası",
   "_comment22": "Araç İpuçları",
   "techreborn.tooltip.transferRate": "Aktarım Oranı",
   "techreborn.tooltip.tier": "Kademe",

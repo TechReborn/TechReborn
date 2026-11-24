@@ -837,7 +837,7 @@
   "death.attack.electric_shock": "%s이(가) 감전되었습니다",
   "death.attack.electric_shock.player": "%s 이(가) %s을(를) 앞질러가다 감전사하였습니다",
   "_comment21": "엔티티",
-  "entity.nuke": "핵",
+  "entity.techreborn.nuke": "핵",
   "_comment22": "툴팁",
   "techreborn.tooltip.transferRate": "전송률",
   "techreborn.tooltip.tier": "티어",

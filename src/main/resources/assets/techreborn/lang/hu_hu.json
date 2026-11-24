@@ -850,7 +850,7 @@
   "death.attack.fusion": "%s akut sugárbetegséget szenvedett",
   "death.attack.fusion.player": "%s akut sugárbetegséget szenvedett %s miatt",
   "_comment21": "Entitások",
-  "entity.nuke": "Atombomba",
+  "entity.techreborn.nuke": "Atombomba",
   "_comment22": "Eszköztippek",
   "techreborn.tooltip.transferRate": "Energiaátvitel",
   "techreborn.tooltip.tier": "Szint",

@@ -782,7 +782,7 @@
   "techreborn.jei.category.generator.plasma": "電漿發電機",
   "_comment20": "死亡訊息",
   "_comment21": "實體",
-  "entity.nuke": "核彈",
+  "entity.techreborn.nuke": "核彈",
   "_comment22": "提示框",
   "techreborn.tooltip.transferRate": "傳輸率",
   "techreborn.tooltip.tier": "階級",

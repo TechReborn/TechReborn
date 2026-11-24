@@ -849,7 +849,7 @@
   "death.attack.fusion": "%s не вынес острую лучевую болезнь",
   "death.attack.fusion.player": "%s не смог пережить острую лучевую болезнь, убегая от %s",
   "_comment21": "Сущности",
-  "entity.nuke": "Ядерная бомба",
+  "entity.techreborn.nuke": "Ядерная бомба",
   "_comment22": "Всплывающие подсказки",
   "techreborn.tooltip.transferRate": "Скорость передачи",
   "techreborn.tooltip.tier": "Уровень",

@@ -847,7 +847,7 @@
   "death.attack.electric_shock": "%s Був вбитий струмом",
   "death.attack.electric_shock.player": "%s Був вбитим струмом, намагаючись втекти від %s",
   "_comment21": "Сутності",
-  "entity.nuke": "Ядерка",
+  "entity.techreborn.nuke": "Ядерка",
   "_comment22": "Підказки",
   "techreborn.tooltip.transferRate": "Швидкість передачі",
   "techreborn.tooltip.tier": "Рівень",

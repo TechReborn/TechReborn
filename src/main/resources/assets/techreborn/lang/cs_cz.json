@@ -850,7 +850,7 @@
   "death.attack.fusion": "%s zemřel na ozáření",
   "death.attack.fusion.player": "%s zemřel na ozáření při pokusu o útěk před %s",
   "_comment21": "Entity",
-  "entity.nuke": "Jaderná bomba",
+  "entity.techreborn.nuke": "Jaderná bomba",
   "_comment22": "Tooltips",
   "techreborn.tooltip.transferRate": "Rychlost přenosu",
   "techreborn.tooltip.tier": "Třída",

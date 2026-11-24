@@ -847,7 +847,7 @@
   "death.attack.electric_shock": "%s fue electrocutado",
   "death.attack.electric_shock.player": "%s fue eleccionado intentando rebasar %s",
   "_comment21": "Entidades",
-  "entity.nuke": "Bomba nuclear",
+  "entity.techreborn.nuke": "Bomba nuclear",
   "_comment22": "Consejos",
   "techreborn.tooltip.transferRate": "Tasas de transferencia",
   "techreborn.tooltip.tier": "Nivel",

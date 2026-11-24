@@ -853,7 +853,7 @@
   "death.attack.fusion": "%s は急性放射線症になった",
   "death.attack.fusion.player": "%s は %s を超えようとして急性放射線症になった",
   "_comment21": "エンティティ",
-  "entity.nuke": "核爆弾",
+  "entity.techreborn.nuke": "核爆弾",
   "_comment22": "ツールチップ",
   "techreborn.tooltip.transferRate": "転送速度",
   "techreborn.tooltip.tier": "等級",

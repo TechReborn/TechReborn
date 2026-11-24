@@ -850,7 +850,7 @@
   "death.attack.fusion": "%s litt an akuter Strahlungskrankheit",
   "death.attack.fusion.player": "%s Erlag der akuten Strahlungskrankheit, die %s versucht hat zu überstehen",
   "_comment21": "Objekte",
-  "entity.nuke": "Kernwaffe",
+  "entity.techreborn.nuke": "Kernwaffe",
   "_comment22": "Kurzinfo",
   "techreborn.tooltip.transferRate": "Übertragungsrate",
   "techreborn.tooltip.tier": "Stufe",

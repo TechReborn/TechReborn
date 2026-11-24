@@ -850,7 +850,7 @@
   "death.attack.fusion": "%s cierpiał na ostrą chorobę promieniowania",
   "death.attack.fusion.player": "%s cierpiał na ostrą chorobę popromienną próbując uciec przed %s",
   "_comment21": "Podmioty",
-  "entity.nuke": "Nagły Wybuch",
+  "entity.techreborn.nuke": "Nagły Wybuch",
   "_comment22": "Podpowiedzi",
   "techreborn.tooltip.transferRate": "Szybkość Transmisji\n",
   "techreborn.tooltip.tier": "Szczebel",

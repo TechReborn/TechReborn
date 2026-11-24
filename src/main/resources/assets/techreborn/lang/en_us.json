@@ -905,7 +905,7 @@
   "death.attack.fusion.player": "%s suffered from acute radiation sickness trying to outrun %s",
 
   "_comment21": "Entities",
-  "entity.nuke": "Nuke",
+  "entity.techreborn.nuke": "Nuke",
 
   "_comment22": "Tooltips",
   "techreborn.tooltip.transferRate": "Transfer Rate",

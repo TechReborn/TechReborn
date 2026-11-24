@@ -853,7 +853,7 @@
   "death.attack.fusion": "%s因遭遇急性放射而死",
   "death.attack.fusion.player": "%s在试图逃离%s时因遭遇急性放射而死",
   "_comment21": "实体",
-  "entity.nuke": "核弹",
+  "entity.techreborn.nuke": "核弹",
   "_comment22": "工具提示",
   "techreborn.tooltip.transferRate": "传输速率",
   "techreborn.tooltip.tier": "能量等级",
