@@ -403,10 +403,10 @@ class CraftingRecipeData {
 	}
 
 	private static void crafting_table_uu_matter_misc(CraftingRecipeFactory recipes) {
-		recipes.shaped(Items.CLAY, 1, null, ['  U', '   ', '   '], ['U': TRContent.Parts.UU_MATTER])
+		recipes.shaped(Items.CLAY, 2, null, ['U U'], ['U': TRContent.Parts.UU_MATTER])
 		recipes.shaped(Items.GLASS, 1, null, ['U  ', '   ', '  U'], ['U': TRContent.Parts.UU_MATTER])
 		recipes.shaped(Items.GLOWSTONE, 1, null, ['UU ', '   ', '   '], ['U': TRContent.Parts.UU_MATTER])
-		recipes.shaped(Items.GRASS_BLOCK, 1, null, ['   ', '   ', 'U  '], ['U': TRContent.Parts.UU_MATTER])
+		recipes.shaped(Items.GRASS_BLOCK, 2, null, ['U  ', '  U'], ['U': TRContent.Parts.UU_MATTER])
 		recipes.shaped(Items.ENDER_PEARL, 1, null, ['UUU', '   ', '   '], ['U': TRContent.Parts.UU_MATTER])
 		recipes.shaped(Items.FEATHER, 1, null, ['U  ', 'U  ', 'U  '], ['U': TRContent.Parts.UU_MATTER])
 		recipes.shaped(Items.INK_SAC, 1, null, ['UU ', 'U  ', '   '], ['U': TRContent.Parts.UU_MATTER])
@@ -416,16 +416,16 @@ class CraftingRecipeData {
 		recipes.shaped(Items.COCOA_BEANS, 1, null, ['U  ', ' G ', 'U  '], ['G': TRContent.Parts.PLANTBALL, 'U': TRContent.Parts.UU_MATTER])
 		recipes.shaped(Items.GLOW_BERRIES, 1, null, [' U ', 'GU ', '   '], ['G': TRContent.Parts.PLANTBALL, 'U': TRContent.Parts.UU_MATTER])
 		recipes.shaped(Items.GLOW_LICHEN, 1, null, [' U ', ' U ', ' G '], ['G': TRContent.Parts.PLANTBALL, 'U': TRContent.Parts.UU_MATTER])
-		recipes.shaped(Items.KELP, 1, null, [' U ', ' U ', ' G '], ['G': TRContent.Parts.PLANTBALL, 'U': TRContent.Parts.UU_MATTER])
+		recipes.shaped(Items.KELP, 1, null, ['U', 'G', 'U'], ['G': TRContent.Parts.PLANTBALL, 'U': TRContent.Parts.UU_MATTER])
 		recipes.shaped(Items.LILY_PAD, 1, null, [' U ', ' GU', '   '], ['G': TRContent.Parts.PLANTBALL, 'U': TRContent.Parts.UU_MATTER])
 		recipes.shaped(Items.MOSS_BLOCK, 1, null, ['G G', ' U ', 'G G'], ['G': TRContent.Parts.PLANTBALL, 'U': TRContent.Parts.UU_MATTER])
 		recipes.shaped(Items.SMALL_DRIPLEAF, 1, null, ['   ', ' G ', 'U  '], ['G': TRContent.Parts.PLANTBALL, 'U': TRContent.Parts.UU_MATTER])
 		recipes.shaped(Items.SUGAR_CANE, 1, null, [' U ', ' G ', 'U  '], ['G': TRContent.Parts.PLANTBALL, 'U': TRContent.Parts.UU_MATTER])
-		recipes.shaped(Items.TWISTING_VINES, 1, null, [' U ', ' UG', '   '], ['G': TRContent.Parts.PLANTBALL, 'U': TRContent.Parts.UU_MATTER])
-		recipes.shaped(Items.VINE, 1, null, ['GU ', ' U ', '   '], ['G': TRContent.Parts.PLANTBALL, 'U': TRContent.Parts.UU_MATTER])
-		recipes.shaped(Items.WEEPING_VINES, 1, null, [' UG', ' U ', '   '], ['G': TRContent.Parts.PLANTBALL, 'U': TRContent.Parts.UU_MATTER])
+		recipes.shaped(Items.TWISTING_VINES, 1, null, ['U  ', ' UG'], ['G': TRContent.Parts.PLANTBALL, 'U': TRContent.Parts.UU_MATTER])
+		recipes.shaped(Items.VINE, 1, null, ['GUU'], ['G': TRContent.Parts.PLANTBALL, 'U': TRContent.Parts.UU_MATTER])
+		recipes.shaped(Items.WEEPING_VINES, 1, null, ['U G', ' U '], ['G': TRContent.Parts.PLANTBALL, 'U': TRContent.Parts.UU_MATTER])
 		recipes.shaped(Items.SEA_LANTERN, 1, null, ['UU ', '  U', '   '], ['U': TRContent.Parts.UU_MATTER])
-		recipes.shaped(Items.SNOW_BLOCK, 1, null, ['   ', '   ', ' U '], ['U': TRContent.Parts.UU_MATTER])
+		recipes.shaped(Items.SNOW_BLOCK, 2, null, ['U', ' ', 'U'], ['U': TRContent.Parts.UU_MATTER])
 		recipes.shaped(Items.STONE, 1, null, ['   ', ' U ', '   '], ['U': TRContent.Parts.UU_MATTER])
 		recipes.shaped(Items.TNT, 1, null, ['U  ', ' U ', '  U'], ['U': TRContent.Parts.UU_MATTER])
 	}
@@ -441,24 +441,24 @@ class CraftingRecipeData {
 		recipes.shaped(Items.CHERRY_SAPLING, 1, null, [' S ', ' P ', ' U '], ['P': TRContent.Parts.PLANTBALL, 'S': TRContent.Dusts.SAW.asTag(), 'U': TRContent.Parts.UU_MATTER])
 		recipes.shaped(Items.CRIMSON_FUNGUS, 1, null, ['   ', ' U ', ' P '], ['P': Items.NETHER_WART_BLOCK, 'U': TRContent.Parts.UU_MATTER])
 		recipes.shaped(Items.DARK_OAK_SAPLING, 1, null, ['   ', ' P ', ' SU'], ['P': TRContent.Parts.PLANTBALL, 'S': TRContent.Dusts.SAW.asTag(), 'U': TRContent.Parts.UU_MATTER])
-		recipes.shaped(Items.JUNGLE_SAPLING, 1, null, ['   ', ' P ', 'US '], ['P': TRContent.Parts.PLANTBALL, 'S': TRContent.Dusts.SAW.asTag(), 'U': TRContent.Parts.UU_MATTER])
-		recipes.shaped(Items.MANGROVE_PROPAGULE, 1, null, ['U  ', ' P ', ' S '], ['P': TRContent.Parts.PLANTBALL, 'S': TRContent.Dusts.SAW.asTag(), 'U': TRContent.Parts.UU_MATTER])
+		recipes.shaped(Items.JUNGLE_SAPLING, 1, null, ['P  ', ' US'], ['P': TRContent.Parts.PLANTBALL, 'S': TRContent.Dusts.SAW.asTag(), 'U': TRContent.Parts.UU_MATTER])
+		recipes.shaped(Items.MANGROVE_PROPAGULE, 1, null, ['U  ', ' P ', '  S'], ['P': TRContent.Parts.PLANTBALL, 'S': TRContent.Dusts.SAW.asTag(), 'U': TRContent.Parts.UU_MATTER])
 		recipes.shaped(Items.OAK_SAPLING, 1, null, [' U ', ' P ', ' S '], ['P': TRContent.Parts.PLANTBALL, 'S': TRContent.Dusts.SAW.asTag(), 'U': TRContent.Parts.UU_MATTER])
 		recipes.shaped(Items.PALE_OAK_SAPLING, 1, null, [' S ', 'UP ', '   '], ['P': TRContent.Parts.PLANTBALL, 'S': TRContent.Dusts.SAW.asTag(), 'U': TRContent.Parts.UU_MATTER])
-		recipes.shaped(Items.SPRUCE_SAPLING, 1, null, ['   ', ' PU', ' S '], ['P': TRContent.Parts.PLANTBALL, 'S': TRContent.Dusts.SAW.asTag(), 'U': TRContent.Parts.UU_MATTER])
+		recipes.shaped(Items.SPRUCE_SAPLING, 1, null, [' PU', 'S  '], ['P': TRContent.Parts.PLANTBALL, 'S': TRContent.Dusts.SAW.asTag(), 'U': TRContent.Parts.UU_MATTER])
 		recipes.shaped(Items.WARPED_FUNGUS, 1, null, ['   ', ' U ', ' P '], ['P': Items.WARPED_WART_BLOCK, 'U': TRContent.Parts.UU_MATTER])
 	}
 
 	private static void crafting_table_uu_matter_wood(CraftingRecipeFactory recipes) {
 		recipes.shaped(Items.ACACIA_WOOD, 1, null, ['   ', 'US ', '   '], ['S': TRContent.Dusts.SAW.asTag(), 'U': TRContent.Parts.UU_MATTER])
 		recipes.shaped(Items.BIRCH_WOOD, 1, null, ['  U', ' S ', '   '], ['S': TRContent.Dusts.SAW.asTag(), 'U': TRContent.Parts.UU_MATTER])
-		recipes.shaped(Items.CRIMSON_HYPHAE, 1, null, ['   ', '   ', 'US '], ['S': TRContent.Dusts.SAW.asTag(), 'U': TRContent.Parts.UU_MATTER])
+		recipes.shaped(Items.CRIMSON_HYPHAE, 1, null, ['U S'], ['S': TRContent.Dusts.SAW.asTag(), 'U': TRContent.Parts.UU_MATTER])
 		recipes.shaped(Items.DARK_OAK_WOOD, 1, null, ['   ', ' S ', '  U'], ['S': TRContent.Dusts.SAW.asTag(), 'U': TRContent.Parts.UU_MATTER])
-		recipes.shaped(Items.JUNGLE_WOOD, 1, null, ['   ', ' S ', 'U  '], ['S': TRContent.Dusts.SAW.asTag(), 'U': TRContent.Parts.UU_MATTER])
-		recipes.shaped(Items.MANGROVE_WOOD, 1, null, ['U  ', ' S ', '   '], ['S': TRContent.Dusts.SAW.asTag(), 'U': TRContent.Parts.UU_MATTER])
+		recipes.shaped(Items.JUNGLE_WOOD, 1, null, ['S  ', '  U'], ['S': TRContent.Dusts.SAW.asTag(), 'U': TRContent.Parts.UU_MATTER])
+		recipes.shaped(Items.MANGROVE_WOOD, 1, null, ['U ', '  ', ' S'], ['S': TRContent.Dusts.SAW.asTag(), 'U': TRContent.Parts.UU_MATTER])
 		recipes.shaped(Items.OAK_WOOD, 1, null, [' U ', ' S ', '   '], ['S': TRContent.Dusts.SAW.asTag(), 'U': TRContent.Parts.UU_MATTER])
-		recipes.shaped(Items.SPRUCE_WOOD, 1, null, ['   ', ' SU', '   '], ['S': TRContent.Dusts.SAW.asTag(), 'U': TRContent.Parts.UU_MATTER])
-		recipes.shaped(Items.WARPED_HYPHAE, 1, null, ['   ', '   ', ' SU'], ['S': TRContent.Dusts.SAW.asTag(), 'U': TRContent.Parts.UU_MATTER])
+		recipes.shaped(Items.SPRUCE_WOOD, 1, null, ['S', 'U'], ['S': TRContent.Dusts.SAW.asTag(), 'U': TRContent.Parts.UU_MATTER])
+		recipes.shaped(Items.WARPED_HYPHAE, 1, null, ['S', ' ', 'U'], ['S': TRContent.Dusts.SAW.asTag(), 'U': TRContent.Parts.UU_MATTER])
 	}
 
 	private static void smelting(CraftingRecipeFactory recipes) {
